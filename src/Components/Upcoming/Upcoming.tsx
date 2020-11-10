@@ -32,13 +32,15 @@ interface UpcomingLaunchesProps {
 const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
   props
 ) => {
+  // TODO: Provide the ability to expand the details of a launch if it has some
+  //      for example: when you expand the Crew-1 launch, it should give the mission patch, crew, and details
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
+            <TableCell>Day</TableCell>
             <TableCell>Capsule</TableCell>
             <TableCell>Rocket</TableCell>
             <TableCell>Launchpad</TableCell>

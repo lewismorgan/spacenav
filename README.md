@@ -1,6 +1,6 @@
 # SpaceNav
 
-Displays data about upcoming SpaceX rocket launches.
+Displays data about SpaceX rocket launches
 
 Created as a project for ISM 4300 class project.
 
@@ -9,6 +9,19 @@ Objectives:
 - Learn how to retrieve data from an external API for React
 - Learn the React framework
 - Learn TypeScript
+- Time Permits: Utilize a testing framework to make sure data is displayed correctly
+- Time Permits: Create a GraphQL wrapper to only download the exact needed data
+
+Task List:
+
+- [ ] Show the upcoming launches
+- [ ] Show carded stats for 4 rockets: Falcon, Falcon 9, Falcon Heavy, and Starship (which has yet to launch)
+  - [ ] Description
+  - [ ] Height
+  - [ ] Engines
+  - [ ] Cost
+  - [ ] In Service Since...
+  - [ ] Success rate
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
