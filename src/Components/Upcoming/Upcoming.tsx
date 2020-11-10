@@ -11,16 +11,24 @@ import React from "react";
 
 export interface UpcomingLaunch {
   name: string;
-  date: string;
+  date: number;
+  capsule: string;
   rocket: string;
   launchpad: string;
   state: string;
 }
 
 interface UpcomingLaunchesProps {
+  /**
+   * The list of upcoming launches to be displayed in the table
+   */
   upcoming: UpcomingLaunch[];
 }
 
+/**
+ * Creates a table that shows a list of upcoming rocket launches
+ * @param props
+ */
 const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
   props
 ) => {
@@ -31,6 +39,7 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>Capsule</TableCell>
             <TableCell>Rocket</TableCell>
             <TableCell>Launchpad</TableCell>
             <TableCell>Location</TableCell>
@@ -42,8 +51,10 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
+              {/* TODO: Convert unix date to readable format */}
               <TableCell align="left">{row.date}</TableCell>
               <TableCell align="left">{row.rocket}</TableCell>
+              <TableCell align="left">{row.capsule}</TableCell>
               <TableCell align="left">{row.launchpad}</TableCell>
               <TableCell align="left">{row.state}</TableCell>
             </TableRow>
