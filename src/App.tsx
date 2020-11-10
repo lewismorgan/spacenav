@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Container from "@material-ui/core/Container/Container";
+import UpcomingLaunches, { UpcomingLaunch } from "./Components/Upcoming";
+
+function createData(
+  name: string,
+  date: string,
+  rocket: string,
+  launchpad: string,
+  state: string
+) {
+  return { name, date, rocket, launchpad, state };
+}
+
+const tempRows: UpcomingLaunch[] = [
+  createData(
+    "Crew-1",
+    "11/05/2020",
+    "Dragon",
+    "KSC LC 39A",
+    "Florida, Cape Canaveral"
+  ),
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="upcoming-container">
+      <UpcomingLaunches upcoming={tempRows} />
+    </Container>
   );
 }
 
