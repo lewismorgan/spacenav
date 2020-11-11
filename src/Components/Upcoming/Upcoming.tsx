@@ -113,8 +113,8 @@ function Row(props: { row: UpcomingLaunch }) {
           {row.name}
         </TableCell>
         <TableCell align="left">{formatDate(row.date)}</TableCell>
-        <TableCell align="left">{row.rocket}</TableCell>
         <TableCell align="left">{row.capsule}</TableCell>
+        <TableCell align="left">{row.rocket}</TableCell>
         <TableCell align="left">{row.launchpad}</TableCell>
         <TableCell align="left">{row.location}</TableCell>
       </TableRow>
