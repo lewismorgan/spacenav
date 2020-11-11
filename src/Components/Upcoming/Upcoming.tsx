@@ -17,10 +17,10 @@ export interface UpcomingLaunch {
   name: string;
   /** UTC date string when the launch is expected to occur */
   date: string;
-  capsule: string;
   rocket: string;
   launchpad: string;
   location: string;
+  capsule?: string;
   /**
    * Additional content to display when expanding
    */
@@ -51,10 +51,10 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
             {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
             <TableCell>Name</TableCell>
             <TableCell>Date</TableCell>
-            <TableCell>Capsule</TableCell>
             <TableCell>Rocket</TableCell>
             <TableCell>Launchpad</TableCell>
             <TableCell>Location</TableCell>
+            <TableCell>Capsule</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -113,10 +113,10 @@ function Row(props: { row: UpcomingLaunch }) {
           {row.name}
         </TableCell>
         <TableCell align="left">{formatDate(row.date)}</TableCell>
-        <TableCell align="left">{row.capsule}</TableCell>
         <TableCell align="left">{row.rocket}</TableCell>
         <TableCell align="left">{row.launchpad}</TableCell>
         <TableCell align="left">{row.location}</TableCell>
+        <TableCell align="left">{row.capsule}</TableCell>
       </TableRow>
       {row.children !== undefined ? expansionRow : null}
     </React.Fragment>
