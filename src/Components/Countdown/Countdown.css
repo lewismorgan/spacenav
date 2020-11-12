@@ -1,0 +1,18 @@
+.countdown-ticker h1 {
+  font-family: "Electrolize";
+  font-style: normal;
+  font-variant: normal;
+  letter-spacing: 0.12rem;
+}
+
+.countdown-ticker {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  /* Take up as much space as the parent allows us to */
+  width: 100%;
+  /* Center within the container */
+  justify-content: center;
+  align-items: center;
+  flex-grow: 2;
+}

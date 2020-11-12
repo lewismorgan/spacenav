@@ -5085,6 +5085,11 @@ fontsource-abel@^3.0.9:
   resolved "https://registry.yarnpkg.com/fontsource-abel/-/fontsource-abel-3.0.9.tgz#b26bea0d19c23ac9f892569ae5b8f43f86d1dfeb"
   integrity sha512-41/+1/2QTGw2GhajN1rQHKWtYohtAH/XjMCrah9vpSlyqBjkFJv/4ef1BJZJU+10TVOa2j/j1eAtquNc5Z7/nQ==
 
+fontsource-electrolize@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/fontsource-electrolize/-/fontsource-electrolize-3.0.9.tgz#b24df7dcecb7681a17973ac4c1e8c5bf89f828a7"
+  integrity sha512-OWyT97x7/4YBZ2oztDIXdiLWtNaGEcpYFVaP2gEGXpP3tc88JGeVBr5AC47sGnO1RoyFqQEXEoqWHZWdOt4Y3g==
+
 fontsource-space-mono@^3.0.9:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/fontsource-space-mono/-/fontsource-space-mono-3.0.9.tgz#1d42fb89bdcb3f2b0a4616f87168a2efd8151a1d"

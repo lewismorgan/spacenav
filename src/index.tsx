@@ -5,6 +5,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import "fontsource-space-mono";
 import "fontsource-abel";
+import "fontsource-electrolize";
 
 // Injects the App component into the HTML DOM using JSX
 ReactDOM.render(

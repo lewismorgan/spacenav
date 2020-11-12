@@ -1,3 +1,26 @@
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.69rem;
+  /* Take up half the screen for countdown */
+  height: 50vh;
+  margin: 0.69rem 0 0.69rem 0;
+}
+
+.countdown-container h3 {
+  margin: 0.25rem;
+  padding-bottom: 0.25rem;
+  color: white;
+  font-variant: small-caps;
+}
+
 .upcoming-container {
   margin: 0.69rem;
+}
+
+.upcoming-container h3 {
+  margin: 0.25rem;
+  padding-bottom: 0.25rem;
+  color: white;
+  font-variant: small-caps;
 }

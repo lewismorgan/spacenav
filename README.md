@@ -14,8 +14,8 @@ Objectives:
 
 Task List:
 
-- [ ] Show the upcoming launches
-- [ ] Countdown banner for the next launch
+- [x] Show the upcoming launches
+- [ ] Countdown banner for the closest launch
 - [ ] Show carded stats for 4 rockets: Falcon, Falcon 9, Falcon Heavy, and Starship (which has yet to launch)
   - [ ] Description
   - [ ] Height
@@ -23,6 +23,7 @@ Task List:
   - [ ] Cost
   - [ ] In Service Since...
   - [ ] Success rate
+- [ ] Toggle between displaying upcoming launches or previous launches
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
