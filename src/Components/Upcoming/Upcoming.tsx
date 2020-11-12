@@ -107,7 +107,7 @@ function Row(props: { row: UpcomingLaunch }) {
       <TableRow>
         {
           // Only display the expansion cell if there are children otherwise return an empty cell
-          row.children !== undefined ? expansionCell : <TableCell />
+          row.children != null ? expansionCell : <TableCell />
         }
         <TableCell component="th" scope="row">
           {row.name}
@@ -118,7 +118,7 @@ function Row(props: { row: UpcomingLaunch }) {
         <TableCell align="left">{row.location}</TableCell>
         <TableCell align="left">{row.capsule}</TableCell>
       </TableRow>
-      {row.children !== undefined ? expansionRow : null}
+      {row.children != null ? expansionRow : null}
     </React.Fragment>
   );
 }

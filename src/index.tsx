@@ -4,6 +4,7 @@ import App from "./Components/App/App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+// Injects the App component into the HTML DOM using JSX
 ReactDOM.render(
   <React.StrictMode>
     <App />

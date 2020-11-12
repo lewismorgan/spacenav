@@ -1,0 +1,17 @@
+.crew {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.crew-member {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  align-items: center;
+}
+
+.crew-member img {
+  width: 125px;
+  height: 150px;
+}

@@ -6,6 +6,7 @@ import {
   fetchUpcomingLaunches,
 } from "../../Network";
 import UpcomingLaunches, { UpcomingLaunch } from "../Upcoming/Upcoming";
+import SpacexLaunchInfo from "./SpacexLaunchInfo";
 
 // TODO: Show a loading component for the table
 
@@ -28,9 +29,7 @@ const SpacexUpcoming = () => {
         const launchpad = await fetchLaunchpad(result.launchpad);
         // Attempt to fetch the capsule if it exists for this launch
         const capsule =
-          result?.capsule !== undefined
-            ? await fetchCapsule(result?.capsule)
-            : null;
+          result?.capsule != null ? await fetchCapsule(result?.capsule) : null;
 
         const launch: UpcomingLaunch = {
           name: result.name,
@@ -39,6 +38,10 @@ const SpacexUpcoming = () => {
           rocket: rocket.name,
           launchpad: launchpad.name,
           location: `${launchpad.locality}, ${launchpad.region}`,
+          children:
+            result.details != null ? (
+              <SpacexLaunchInfo details={result.details} />
+            ) : null,
         };
         // Return a UpcomingLaunch, expected by the UpcomingLaunches component
         return launch;
@@ -48,10 +51,9 @@ const SpacexUpcoming = () => {
       // the UpcomingLaunches component
       const currentLaunches = (await Promise.all(launches))
         .filter((item) => {
-          const time = Date.parse(item.date);
           // this happened in the past which wont have an updated date
           // > than now means it has yet to happen
-          return time > Date.now();
+          return Date.parse(item.date) > Date.now();
         })
         .sort((a, b) => {
           // Sort by the closest launch date to latest launch date
