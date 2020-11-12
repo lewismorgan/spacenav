@@ -25,6 +25,7 @@ export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
       launchpad: json["launchpad"],
       upcoming: json["upcoming"],
       capsule: json["capsules"]?.length > 0 ? json["capsules"][0] : undefined,
+      crew: json["crew"],
     };
     // Add to array to be returned
     arr.push(launch);
@@ -43,6 +44,7 @@ interface LaunchResult {
   launchpad: string;
   capsule?: string;
   upcoming: boolean;
+  crew?: string[];
 }
 
 /**
@@ -122,4 +124,29 @@ export async function fetchCapsule(capsule: string): Promise<CapsuleResult> {
  */
 interface CapsuleResult {
   name: string;
+}
+
+/**
+ * Returns information about a crew member from the SpaceX API
+ *
+ * https://api.spacexdata.com/v4/crew/{{id}}
+ * @param crew
+ */
+export async function fetchCrewMember(crew: string): Promise<CrewMemberResult> {
+  const response = await Axios.get(
+    `https://api.spacexdata.com/v4/crew/${crew}`
+  );
+  const json = response.data;
+
+  return {
+    name: json["name"],
+    agency: json["agency"],
+    image: json["image"],
+  };
+}
+
+interface CrewMemberResult {
+  name: string;
+  agency: string;
+  image: string;
 }

@@ -1,5 +1,6 @@
 import { Container, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { fetchCrewMember } from "../../Network";
 import LaunchCrew, { CrewMember } from "../LaunchCrew/LaunchCrew";
 
 interface SpacexLaunchInfoProps {
@@ -16,19 +17,13 @@ interface SpacexLaunchInfoProps {
 const SpacexLaunchInfo = (props: SpacexLaunchInfoProps) => {
   const { crewIds, details } = props;
 
-  // Fetch information about the crew, if it has one
-  useEffect(() => {
-    if (crewIds == null) {
-      // no crew data to fetch
-      return;
-    }
-    // TODO: Fetch information about the crew
-  }, []);
-
   return (
     <div className="launch-info">
       <DetailsContainer details={details} />
-      {props.crewIds != null ? <CrewContainer crew={[]} /> : null}
+      {/* Only build a crew container if there are crew ids */}
+      {props.crewIds != null && props.crewIds.length > 0 ? (
+        <CrewContainer crewIds={crewIds ?? []} />
+      ) : null}
     </div>
   );
 };
@@ -50,8 +45,40 @@ function DetailsContainer(props: { details: string }) {
 }
 
 /** Fragment for a section that lists out the crew for the mission */
-function CrewContainer(props: { crew: CrewMember[] }) {
-  const { crew } = props;
+function CrewContainer(props: { crewIds: string[] }) {
+  // TODO: Display placeholder content while crew is loading
+
+  const { crewIds } = props;
+  const [data, setData] = useState({
+    crewMembers: Array<CrewMember>(),
+  });
+
+  // Fetch information about the crew, if it has one
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Fetching crew information");
+      if (crewIds == null || crewIds.length === 0) {
+        // no crew data to fetch
+        return;
+      }
+
+      // Map the list of crew id's to promises that fetches data about the crew member
+      const members = (
+        await Promise.all(
+          crewIds.map((id) => {
+            return fetchCrewMember(id);
+          })
+        )
+      ).map((member) => {
+        // Use only the data that is needed from the result
+        return { imgUrl: member.image, name: member.name };
+      });
+
+      // Data has been fetched and mapped, set the state to the new members
+      setData({ crewMembers: members });
+    };
+    fetchData();
+  }, [crewIds]);
 
   return (
     <React.Fragment>
@@ -59,7 +86,7 @@ function CrewContainer(props: { crew: CrewMember[] }) {
         <Typography style={{ padding: "5px" }} variant="h5">
           The Crew
         </Typography>
-        <LaunchCrew crew={crew}></LaunchCrew>
+        <LaunchCrew crew={data.crewMembers}></LaunchCrew>
       </Container>
     </React.Fragment>
   );

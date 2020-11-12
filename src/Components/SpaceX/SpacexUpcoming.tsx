@@ -40,7 +40,10 @@ const SpacexUpcoming = () => {
           location: `${launchpad.locality}, ${launchpad.region}`,
           children:
             result.details != null ? (
-              <SpacexLaunchInfo details={result.details} />
+              <SpacexLaunchInfo
+                details={result.details}
+                crewIds={result.crew}
+              />
             ) : null,
         };
         // Return a UpcomingLaunch, expected by the UpcomingLaunches component

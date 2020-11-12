@@ -16,7 +16,7 @@ const LaunchCrew = (props: LaunchCrewProps) => {
   // Create the crew member component
   const members = props.crew.map((item) => {
     return (
-      <div className="crew-member">
+      <div key={item.name} className="crew-member">
         <CrewMemberItem member={item}></CrewMemberItem>
       </div>
     );
