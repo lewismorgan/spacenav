@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import "./Upcoming.css";
 import React from "react";
 
 export interface UpcomingLaunch {
@@ -24,7 +25,7 @@ export interface UpcomingLaunch {
   /**
    * Additional content to display when expanding
    */
-  children?: any;
+  child?: any;
 }
 
 interface UpcomingLaunchesProps {
@@ -44,9 +45,9 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
   const { upcoming } = props;
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="table">
+      <Table className="upcoming-launch-table" aria-label="table">
         <TableHead>
-          <TableRow>
+          <TableRow className="upcoming-launch-header">
             <TableCell />
             {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
             <TableCell>Name</TableCell>
@@ -89,13 +90,18 @@ function Row(props: { row: UpcomingLaunch }) {
     </TableCell>
   );
   const expansionRow = (
-    <TableRow>
+    // Set the class based on if you can open the row or not
+    <TableRow
+      className={`${
+        !open ? "upcoming-launch-row" : "upcoming-launch-row-expanded"
+      }`}
+    >
       {/* Set the column span to 7 because there are 7 headers for the table */}
       {/* If the span is not the same number of headers then weird width issues occur during expansion/collapse */}
       {/* Remove the padding so it doesnt show a gap between rows */}
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {row.children !== undefined ? row.children : null}
+          {row.child !== undefined ? row.child : null}
         </Collapse>
       </TableCell>
     </TableRow>
@@ -104,21 +110,19 @@ function Row(props: { row: UpcomingLaunch }) {
   // Returns around fragment to prevent nested indentation when mapping the list during table creation
   return (
     <React.Fragment>
-      <TableRow>
+      <TableRow className="upcoming-launch-row">
         {
           // Only display the expansion cell if there are children otherwise return an empty cell
-          row.children != null ? expansionCell : <TableCell />
+          row.child != null ? expansionCell : <TableCell />
         }
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
+        <TableCell>{row.name}</TableCell>
         <TableCell align="left">{formatDate(row.date)}</TableCell>
         <TableCell align="left">{row.rocket}</TableCell>
         <TableCell align="left">{row.launchpad}</TableCell>
         <TableCell align="left">{row.location}</TableCell>
         <TableCell align="left">{row.capsule}</TableCell>
       </TableRow>
-      {row.children != null ? expansionRow : null}
+      {row.child != null ? expansionRow : null}
     </React.Fragment>
   );
 }

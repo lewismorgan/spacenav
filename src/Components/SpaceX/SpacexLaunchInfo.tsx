@@ -2,6 +2,7 @@ import { Container, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { fetchCrewMember } from "../../Network";
 import LaunchCrew, { CrewMember } from "../LaunchCrew/LaunchCrew";
+import "./styles.css";
 
 interface SpacexLaunchInfoProps {
   /** Mission details for the launch */
@@ -35,8 +36,8 @@ function DetailsContainer(props: { details: string }) {
   return (
     <React.Fragment>
       <Container className="details-container">
-        <Typography style={{ padding: "5px" }} variant="h5">
-          The Mission
+        <Typography className="spacex-info-header" variant="h4">
+          Mission
         </Typography>
         <p>{details}</p>
       </Container>
@@ -47,6 +48,7 @@ function DetailsContainer(props: { details: string }) {
 /** Fragment for a section that lists out the crew for the mission */
 function CrewContainer(props: { crewIds: string[] }) {
   // TODO: Display placeholder content while crew is loading
+  // TODO: Sort by Agency -> Name (last)
 
   const { crewIds } = props;
   const [data, setData] = useState({
@@ -83,8 +85,8 @@ function CrewContainer(props: { crewIds: string[] }) {
   return (
     <React.Fragment>
       <Container className="crew-container">
-        <Typography style={{ padding: "5px" }} variant="h5">
-          The Crew
+        <Typography className="spacex-info-header" variant="h4">
+          Crew
         </Typography>
         <LaunchCrew crew={data.crewMembers}></LaunchCrew>
       </Container>

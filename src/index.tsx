@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import App from "./Components/App/App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import "fontsource-space-mono";
+import "fontsource-abel";
 
 // Injects the App component into the HTML DOM using JSX
 ReactDOM.render(

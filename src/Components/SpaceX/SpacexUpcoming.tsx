@@ -38,7 +38,7 @@ const SpacexUpcoming = () => {
           rocket: rocket.name,
           launchpad: launchpad.name,
           location: `${launchpad.locality}, ${launchpad.region}`,
-          children:
+          child:
             result.details != null ? (
               <SpacexLaunchInfo
                 details={result.details}
