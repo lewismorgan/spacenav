@@ -114,7 +114,6 @@ export async function fetchCapsule(capsule: string): Promise<CapsuleResult> {
   );
   const json = response.data;
 
-  console.log(json);
   return { name: json["type"] };
 }
 

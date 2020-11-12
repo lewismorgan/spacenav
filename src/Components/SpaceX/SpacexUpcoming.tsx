@@ -7,6 +7,8 @@ import {
 } from "../../Network";
 import UpcomingLaunches, { UpcomingLaunch } from "../Upcoming/Upcoming";
 
+// TODO: Show a loading component for the table
+
 /**
  * Displays a table of upcoming SpaceX Launches
  */
@@ -42,8 +44,24 @@ const SpacexUpcoming = () => {
         return launch;
       });
 
+      // Resolves all the promises from mapping the launches. Additionally it filters and sorts data to fit
+      // the UpcomingLaunches component
+      const currentLaunches = (await Promise.all(launches))
+        .filter((item) => {
+          const time = Date.parse(item.date);
+          // this happened in the past which wont have an updated date
+          // > than now means it has yet to happen
+          return time > Date.now();
+        })
+        .sort((a, b) => {
+          // Sort by the closest launch date to latest launch date
+          const aDate = Date.parse(a.date);
+          const bDate = Date.parse(b.date);
+          return aDate.valueOf() - bDate.valueOf();
+        });
+
       // Resolve all the promises before assigning to the new state
-      setData({ upcoming: await Promise.all(launches) });
+      setData({ upcoming: currentLaunches });
     };
     // Begin fetching the data
     fetchData();
