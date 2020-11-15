@@ -19,6 +19,9 @@ export interface RocketsProps {
 function RocketItem(props: { rocket: Rocket }) {
   const { rocket } = props;
 
+  // TODO: Display success rate % within a bar that takes up remaning width of parent from margin
+  // TODO: Display `Under Construction` if rocket has yet to launch
+
   return (
     <React.Fragment>
       <Typography variant="h4">{rocket.name}</Typography>

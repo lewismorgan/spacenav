@@ -16,12 +16,19 @@
   border-color: #005c22;
 }
 
+.rocket h4 {
+  margin: 0.1rem 0 0.69rem 0;
+}
+
 .rocket img {
+  display: flex;
+  /* Center the image in the container */
+  margin: auto;
   border-color: #005c22;
   border-width: 1px;
   border-radius: 10px;
   border-style: solid;
-  width: 125px;
+  width: 145px;
   height: 150px;
 }
 
@@ -36,4 +43,5 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 4px 0 4px 0;
+  font-family: "Space Mono";
 }

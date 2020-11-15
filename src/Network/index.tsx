@@ -61,7 +61,40 @@ export async function fetchRocket(rocket: string): Promise<RocketResult> {
   const json = response.data;
 
   // Use the results of the network request to obtain the needed data from the JSON file
-  return { name: json["name"] };
+  return {
+    name: json["name"],
+    active: json["active"],
+    description: json["description"],
+    imgUrls: json["flickr_images"],
+    firstFlight: json["first_flight"],
+    successRate: json["success_rate_pct"],
+  };
+}
+
+/**
+ * Returns all rockets from the SpaceX api
+ *
+ * https://api.spacexdata.com/v4/rockets
+ */
+export async function fetchRockets(): Promise<RocketResult[]> {
+  const response = await Axios.get(`https://api.spacexdata.com/v4/rockets`);
+
+  let rockets = [];
+
+  for (let i in response.data) {
+    const json = response.data[i];
+    var rocket: RocketResult = {
+      name: json["name"],
+      active: json["active"],
+      description: json["description"],
+      imgUrls: json["flickr_images"],
+      firstFlight: json["first_flight"],
+      successRate: json["success_rate_pct"],
+    };
+    rockets.push(rocket);
+  }
+
+  return rockets;
 }
 
 /**
@@ -69,6 +102,11 @@ export async function fetchRocket(rocket: string): Promise<RocketResult> {
  */
 interface RocketResult {
   name: string;
+  description: string;
+  imgUrls: string[];
+  active: boolean;
+  firstFlight: string;
+  successRate: number;
 }
 
 /**
