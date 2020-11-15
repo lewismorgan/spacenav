@@ -3,8 +3,8 @@ import "./App.css";
 import Container from "@material-ui/core/Container/Container";
 import SpacexUpcoming from "../SpaceX/SpacexUpcoming";
 import { createMuiTheme, ThemeProvider, Typography } from "@material-ui/core";
-import Countdown from "../Countdown/Countdown";
-import { fetchUpcomingLaunches } from "../../Network";
+import { fetchUpcomingLaunches, LaunchResult } from "../../Network";
+import { CountdownSelector } from "../Countdown/CountdownSelector";
 
 // variable to pass through for typography since you have to specify all headers
 const defaultHeaderFont = {
@@ -34,7 +34,7 @@ const theme = createMuiTheme({
 
 /** The main entry point for the application, wraps up all the main components */
 function App() {
-  const [nextLaunch, setNextLaunch] = useState({ name: "", time: "" });
+  const [launches, setLaunches] = useState([] as LaunchResult[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,8 +55,7 @@ function App() {
         });
 
       // Closest launch date was set as the first index in the array
-      const launch = sortedLaunches[0];
-      setNextLaunch({ name: launch.name, time: launch.date });
+      setLaunches(sortedLaunches);
     };
     fetchData();
     return () => {};
@@ -64,11 +63,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="countdown-container">
-        <Typography variant="h3">{`Countdown Until ${nextLaunch.name}`}</Typography>
-        <Countdown endTime={nextLaunch.time} />
-      </div>
+      <CountdownSelector
+        countdowns={launches.map((launch) => [launch.name, launch.date])}
+      />
       <Container className="upcoming-container">
+        {/* TODO: Change between Scheduled launches and Past Launches (up to 10) */}
         <Typography variant="h3">Scheduled Launches</Typography>
         <SpacexUpcoming />
       </Container>

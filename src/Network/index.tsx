@@ -35,7 +35,7 @@ export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
   return arr;
 }
 
-interface LaunchResult {
+export interface LaunchResult {
   id: string;
   name: string;
   date: string;

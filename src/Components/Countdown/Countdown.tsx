@@ -44,11 +44,21 @@ export default function Countdown(props: CountdownProps) {
 
   // Create an effect that re-calculates the countdown every second if the endTime changes
   useEffect(() => {
-    const interval = setInterval(async () => {
+    // Only render when the component is mounted
+    let isMounted = true;
+    // Interval function that checks to make sure component is mounted before state change
+    const interval = setInterval(() => {
+      // The component isn't mounted
+      if (!isMounted) return;
+      // Component mounted, determine what the countdown should be
       const countdown = calculateCountdown(end);
       setCountdown(countdown);
     }, 1000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      // Component was disposed, changed isMounted to false
+      isMounted = false;
+    };
   }, [end]);
 
   return (
