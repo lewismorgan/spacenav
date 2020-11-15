@@ -4,6 +4,10 @@ Displays data about SpaceX rocket launches
 
 Created as a project for ISM 4300 class project.
 
+Site is available for viewing at <https://spacenav.netlify.app/>.
+
+Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and updates the deployed website.
+
 Objectives:
 
 - Learn how to retrieve data from an external API for React
@@ -26,6 +30,8 @@ Task List:
 - [ ] Toggle between displaying upcoming launches or previous launches
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![preview](./.github/preview.png)
 
 ## Available Scripts
 

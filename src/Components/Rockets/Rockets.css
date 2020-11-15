@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   /* Align the items to the start of the container instead of filling container */
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .rocket {
