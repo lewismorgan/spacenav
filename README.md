@@ -15,7 +15,7 @@ Objectives:
 Task List:
 
 - [x] Show the upcoming launches
-- [ ] Countdown banner for the closest launch
+- [x] Countdown banner for the closest launch
 - [ ] Show carded stats for 4 rockets: Falcon, Falcon 9, Falcon Heavy, and Starship (which has yet to launch)
   - [ ] Description
   - [ ] Height
