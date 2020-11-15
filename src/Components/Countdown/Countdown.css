@@ -8,11 +8,11 @@
 .countdown-ticker {
   display: flex;
   flex-direction: row;
+  /* Ensure the ticker fills all of the parents remaining height with margin */
+  margin: auto;
   color: white;
-  /* Take up as much space as the parent allows us to */
+  /* Take up as much space width as the parent allows us to */
   width: 100%;
   /* Center within the container */
   justify-content: center;
-  align-items: center;
-  flex-grow: 2;
 }

@@ -29,6 +29,8 @@ const theme = createMuiTheme({
   },
 });
 
+// TODO: Click on the mission name to change mission countdown
+
 /** The main entry point for the application, wraps up all the main components */
 function App() {
   const name = "Crew-1";
@@ -37,7 +39,7 @@ function App() {
       <div className="countdown-container">
         {/* TODO: Load soonest mission into the countdown ticker */}
         <Typography variant="h3">{`Countdown Until ${name}`}</Typography>
-        <Countdown time={`420d:10h:9m:8s`} />
+        <Countdown endTime={`2020-11-16T00:27:00.000Z`} />
       </div>
       <Container className="upcoming-container">
         <Typography variant="h3">Scheduled Launches</Typography>
