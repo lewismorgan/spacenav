@@ -28,26 +28,28 @@ function calculateCountdown(end: number): CountdownTime {
   var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-  return { days: days, hours: hours, minutes: minutes, seconds: seconds };
+  return {
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds,
+  };
 }
 
 export default function Countdown(props: CountdownProps) {
   const { endTime } = props;
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  } as CountdownTime);
+  // Set the state to start the countdown from the current property value
+  const end = new Date(endTime).getTime();
+  const [countdown, setCountdown] = useState(calculateCountdown(end));
 
+  // Create an effect that re-calculates the countdown every second if the endTime changes
   useEffect(() => {
-    const end = new Date(endTime).getTime();
-    const interval = setInterval(() => {
-      const countdown = calculateCountdown(new Date(end).getTime());
+    const interval = setInterval(async () => {
+      const countdown = calculateCountdown(end);
       setCountdown(countdown);
     }, 1000);
     return () => clearInterval(interval);
-  }, [endTime]);
+  }, [end]);
 
   return (
     <div className="countdown-ticker">
