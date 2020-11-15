@@ -1,6 +1,6 @@
 .upcoming-launch-table {
   border-style: double;
-  border-color: #00481a;
+  border-color: #005c22;
   border-width: 4px;
 }
 
@@ -11,11 +11,11 @@
 }
 
 .upcoming-launch-row-expanded td {
-  border-color: #00481a;
+  border-color: #005c22;
 }
 
 .upcoming-launch-header th {
-  border-color: #00481a;
+  border-color: #005c22;
   font-family: "Space Mono";
   /* font-weight: bold; */
   font-variant-caps: all-small-caps;

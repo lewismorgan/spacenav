@@ -23,7 +23,8 @@
 }
 
 .countdown-selector .picker {
-  font-family: "Space Mono";
+  font-family: "Electrolize";
+  letter-spacing: 0.25rem;
   font-size: 2rem;
   margin-left: 1rem;
 }

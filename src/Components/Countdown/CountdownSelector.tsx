@@ -1,4 +1,10 @@
-import { MenuItem, Select, Typography } from "@material-ui/core";
+import {
+  Input,
+  makeStyles,
+  MenuItem,
+  Select,
+  Typography,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import Countdown from "./Countdown";
 import "./Countdown.css";
@@ -7,6 +13,20 @@ export interface CountdownSelectorProps {
   /** Tuple of launch names with the time as a unix string */
   countdowns: string[][];
 }
+
+const useStyles = makeStyles({
+  underline: {
+    "&:before": {
+      borderBottom: "2px solid #005c22",
+    },
+    "&:after": {
+      borderBottom: "2px solid #005c22",
+    },
+    "&:hover": {
+      borderBottom: "2px solid #005c22",
+    },
+  },
+});
 
 export const CountdownSelector = (props: CountdownSelectorProps) => {
   const { countdowns } = props;
@@ -31,6 +51,8 @@ export const CountdownSelector = (props: CountdownSelectorProps) => {
     setValue(event.target.value as number);
   };
 
+  const classes = useStyles();
+
   return (
     <div className="countdown-container">
       <div className="countdown-selector">
@@ -42,6 +64,7 @@ export const CountdownSelector = (props: CountdownSelectorProps) => {
           onClose={handleClose}
           onChange={handleChange}
           value={value}
+          input={<Input classes={classes} />}
         >
           {names.map((item, index) => (
             <MenuItem key={item} value={index}>

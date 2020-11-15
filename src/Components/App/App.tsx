@@ -5,6 +5,7 @@ import SpacexUpcoming from "../SpaceX/SpacexUpcoming";
 import { createMuiTheme, ThemeProvider, Typography } from "@material-ui/core";
 import { fetchUpcomingLaunches, LaunchResult } from "../../Network";
 import { CountdownSelector } from "../Countdown/CountdownSelector";
+import { SpacexRockets } from "../SpaceX/SpacexRockets";
 
 // variable to pass through for typography since you have to specify all headers
 const defaultHeaderFont = {
@@ -70,6 +71,10 @@ function App() {
         {/* TODO: Change between Scheduled launches and Past Launches (up to 10) */}
         <Typography variant="h3">Scheduled Launches</Typography>
         <SpacexUpcoming />
+      </Container>
+      <Container style={{ margin: "0.69rem" }}>
+        <Typography variant="h3">Rockets</Typography>
+        <SpacexRockets />
       </Container>
     </ThemeProvider>
   );
