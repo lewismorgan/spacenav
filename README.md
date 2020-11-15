@@ -1,12 +1,14 @@
 # SpaceNav
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0040183c-5ca5-4fc0-bc07-7f66f0dd7815/deploy-status)](https://app.netlify.com/sites/spacenav/deploys)
+
 Displays data about SpaceX rocket launches
 
-Created as a project for ISM 4300 class project.
+Created as my project for ISM 4300.
 
-Site is available for viewing at <https://spacenav.netlify.app/>.
+Site is deployed to <https://spacenav.netlify.app/>.
 
-Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and updates the deployed website.
+Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and updates the website.
 
 Objectives:
 
