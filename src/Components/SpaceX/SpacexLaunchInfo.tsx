@@ -47,7 +47,6 @@ function DetailsContainer(props: { details: string }) {
 
 /** Fragment for a section that lists out the crew for the mission */
 function CrewContainer(props: { crewIds: string[] }) {
-  // TODO: Display placeholder content while crew is loading
   // TODO: Sort by Agency -> Name (last)
 
   const { crewIds } = props;

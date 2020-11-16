@@ -7,8 +7,6 @@ export interface CountdownProps {
   endTime: string;
 }
 
-// TODO: Display changing characters while loading the launch name text
-
 interface CountdownTime {
   days: number;
   hours: number;

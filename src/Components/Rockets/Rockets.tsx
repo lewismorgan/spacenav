@@ -19,29 +19,45 @@ export interface RocketsProps {
 function RocketItem(props: { rocket: Rocket }) {
   const { rocket } = props;
 
-  // TODO: Display success rate % within a bar that takes up remaning width of parent from margin
-  // TODO: Display `Under Construction` if rocket has yet to launch
+  let statusColor = "lightgreen";
+  let statusText = "Active";
+  if (!rocket.active) {
+    statusText = "Retired";
+    statusColor = "red";
+  }
+  if (!rocket.active && new Date(rocket.firstFlight).getTime() > Date.now()) {
+    statusText = "Under Construction";
+    statusColor = "yellow";
+  }
 
   return (
     <React.Fragment>
       <Typography variant="h4">{rocket.name}</Typography>
       <img src={rocket.imgUrl} />
       <p>{rocket.description}</p>
+      <RocketStat
+        title="Status"
+        value={statusText}
+        style={{ color: statusColor }}
+      />
+      <RocketStat title="First Flight" value={rocket.firstFlight} />
+      <RocketStat title="Success Rate" value={`${rocket.successRate} %`} />
+    </React.Fragment>
+  );
+}
+
+function RocketStat(props: {
+  title: string;
+  value: string;
+  style?: React.CSSProperties;
+}) {
+  const { title, value, style } = props;
+
+  return (
+    <React.Fragment>
       <div className="rocket-stat">
-        <span>Status:</span>
-        <span
-          style={rocket.active ? { color: "lightgreen" } : { color: "red" }}
-        >
-          {rocket.active ? "Active" : "Retired"}
-        </span>
-      </div>
-      <div className="rocket-stat">
-        <span>First Flight:</span>
-        <span>{rocket.firstFlight}</span>
-      </div>
-      <div className="rocket-stat">
-        <span>Success Rate:</span>
-        <span>{`${rocket.successRate} %`}</span>
+        <span>{`${title}:`}</span>
+        <span style={style}>{value}</span>
       </div>
     </React.Fragment>
   );
@@ -51,7 +67,7 @@ export const Rockets = (props: RocketsProps) => {
   const { rockets } = props;
 
   return (
-    <div className="rocket-container">
+    <div className="rockets-container">
       {rockets.map((rocket) => (
         <Paper key={rocket.name} elevation={0} className="rocket">
           <RocketItem rocket={rocket} />

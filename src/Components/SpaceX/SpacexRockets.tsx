@@ -1,3 +1,4 @@
+import { Container, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { fetchRockets } from "../../Network";
 import { Rocket, Rockets } from "../Rockets/Rockets";
@@ -25,5 +26,10 @@ export const SpacexRockets = () => {
     return () => {};
   }, []);
 
-  return <Rockets rockets={rocketList} />;
+  return (
+    <Container style={{ margin: "0.69rem" }}>
+      <Typography variant="h3">Rockets</Typography>
+      <Rockets rockets={rocketList} />
+    </Container>
+  );
 };

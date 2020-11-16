@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
-import Container from "@material-ui/core/Container/Container";
 import SpacexUpcoming from "../SpaceX/SpacexUpcoming";
-import { createMuiTheme, ThemeProvider, Typography } from "@material-ui/core";
-import { fetchUpcomingLaunches, LaunchResult } from "../../Network";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { CountdownSelector } from "../Countdown/CountdownSelector";
 import { SpacexRockets } from "../SpaceX/SpacexRockets";
+import { useUpcomingLaunches } from "../SpaceX";
 
 // variable to pass through for typography since you have to specify all headers
 const defaultHeaderFont = {
@@ -31,51 +30,18 @@ const theme = createMuiTheme({
   },
 });
 
-// TODO: Click on the mission name to change mission countdown
-
 /** The main entry point for the application, wraps up all the main components */
 function App() {
-  const [launches, setLaunches] = useState([] as LaunchResult[]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Get the upcoming launches
-      const launches = await fetchUpcomingLaunches();
-
-      // Determine which launch is the soonest
-      const now = Date.now();
-      const sortedLaunches = launches
-        .filter((launch) => {
-          return new Date(launch.date).getTime() > now;
-        })
-        .sort((a, b) => {
-          // Sort by the closest launch date to latest launch date
-          const aDate = Date.parse(a.date);
-          const bDate = Date.parse(b.date);
-          return aDate.valueOf() - bDate.valueOf();
-        });
-
-      // Closest launch date was set as the first index in the array
-      setLaunches(sortedLaunches);
-    };
-    fetchData();
-    return () => {};
-  }, []);
+  // Use the upcoming launches hook
+  const launches = useUpcomingLaunches();
 
   return (
     <ThemeProvider theme={theme}>
       <CountdownSelector
         countdowns={launches.map((launch) => [launch.name, launch.date])}
       />
-      <Container className="upcoming-container">
-        {/* TODO: Change between Scheduled launches and Past Launches (up to 10) */}
-        <Typography variant="h3">Scheduled Launches</Typography>
-        <SpacexUpcoming />
-      </Container>
-      <Container style={{ margin: "0.69rem" }}>
-        <Typography variant="h3">Rockets</Typography>
-        <SpacexRockets />
-      </Container>
+      <SpacexUpcoming />
+      <SpacexRockets />
     </ThemeProvider>
   );
 }
