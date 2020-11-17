@@ -8,32 +8,17 @@ Created as final class project for ISM 4300 at the University of South Florida, 
 
 Site is deployed to <https://spacenav.netlify.app/>.
 
-Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and updates the website.
+Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and deploys to <https://spacenav.netlify.app>
 
 Objectives:
 
 - Learn how to retrieve data from an external API for React
 - Learn the React framework
 - Learn TypeScript
-- Time Permits: Utilize a testing framework to make sure data is displayed correctly
-- Time Permits: Create a GraphQL wrapper to only download the exact needed data
-
-Task List:
-
-- [ ] Loading screen
-- [x] Show the upcoming launches
-- [x] Countdown banner for the closest launch
-- [ ] Show ~5 previous launches
-- [x] Show carded stats for 4 rockets: Falcon, Falcon 9, Falcon Heavy, and Starship (which has yet to launch)
-  - [x] Description
-  - [x] Weight
-  - [x] Cost
-  - [x] In Service Since...
-  - [x] Success rate
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ![preview](./.github/preview.png)
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
