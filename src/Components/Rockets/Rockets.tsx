@@ -11,6 +11,8 @@ export interface Rocket {
   firstFlight: string;
   successRate: number;
   active: boolean;
+  cost: number;
+  weight: number;
 }
 
 export interface RocketsProps {
@@ -44,6 +46,14 @@ function RocketItem(props: { rocket: Rocket }) {
         style={{ color: statusColor }}
       />
       <RocketStat title="First Flight" value={rocket.firstFlight} />
+      <RocketStat
+        title="Mass"
+        value={`${rocket.weight.toLocaleString()} lbs`}
+      />
+      <RocketStat
+        title="Est. Cost"
+        value={`$ ${rocket.cost.toLocaleString()}`}
+      />
       <RocketStat title="Success Rate" value={`${rocket.successRate} %`} />
     </React.Fragment>
   );
@@ -69,9 +79,17 @@ function RocketStat(props: {
 export const Rockets = (props: RocketsProps) => {
   const { rockets } = props;
 
+  // Sort based on the active status of the rocket and the date
+  const sortedRockets = rockets.sort((a, b) => {
+    if (a.active && b.active) return 0;
+    else if (a.active && !b.active) return -1;
+    else if (a.firstFlight > b.firstFlight) return -1;
+    else return 1;
+  });
+
   return (
     <div className="rockets-container">
-      {rockets.map((rocket) => (
+      {sortedRockets.map((rocket) => (
         <Paper key={rocket.name} elevation={0} className="rocket">
           <RocketItem rocket={rocket} />
         </Paper>

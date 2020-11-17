@@ -13,7 +13,7 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./Upcoming.css";
 import React from "react";
 
-export interface UpcomingLaunch {
+export interface LaunchItem {
   /** Unique name for this launch */
   name: string;
   /** UTC date string when the launch is expected to occur */
@@ -28,21 +28,19 @@ export interface UpcomingLaunch {
   child?: any;
 }
 
-interface UpcomingLaunchesProps {
+interface LaunchTableProps {
   /**
-   * The list of upcoming launches to be displayed in the table
+   * The list of launches to be displayed in the table
    */
-  upcoming: UpcomingLaunch[];
+  items: LaunchItem[];
 }
 
 /**
- * Creates a table that shows a list of upcoming rocket launches
+ * Creates a table that shows a list of rocket launches
  * @param props
  */
-const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
-  props
-) => {
-  const { upcoming } = props;
+const LaunchTable: React.FunctionComponent<LaunchTableProps> = (props) => {
+  const { items } = props;
   return (
     <TableContainer component={Paper}>
       <Table className="upcoming-launch-table" aria-label="table">
@@ -59,7 +57,7 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
           </TableRow>
         </TableHead>
         <TableBody>
-          {upcoming.map((row) => (
+          {items.map((row) => (
             <Row key={row.name} row={row}></Row>
           ))}
         </TableBody>
@@ -72,7 +70,7 @@ const UpcomingLaunches: React.FunctionComponent<UpcomingLaunchesProps> = (
  * React fragment specifically for the table rows so state can be maintained for detail expansion
  * @param props
  */
-function Row(props: { row: UpcomingLaunch }) {
+function Row(props: { row: LaunchItem }) {
   const { row } = props;
   // Maintain the state for each row to know if it is expanded or not
   const [open, setOpen] = React.useState(false);
@@ -133,4 +131,4 @@ function formatDate(dateUtc: string): string {
   return date.toLocaleString();
 }
 
-export default UpcomingLaunches;
+export default LaunchTable;

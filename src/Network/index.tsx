@@ -1,7 +1,42 @@
 import Axios from "axios";
 
+function parseLaunchResult(json: any): LaunchResult {
+  return {
+    id: json["id"],
+    name: json["name"],
+    date: json["date_utc"],
+    details: json["details"],
+    rocket: json["rocket"],
+    launchpad: json["launchpad"],
+    upcoming: json["upcoming"],
+    capsule: json["capsules"]?.length > 0 ? json["capsules"][0] : undefined,
+    crew: json["crew"],
+  };
+}
+
 /**
- * Returns all of the upcoming launches.
+ * Returns all of the past launches from the SpaceX API.
+ *
+ * https://api.spacexdata.com/v4/launches/past
+ */
+export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
+  const response = await Axios.get(
+    "https://api.spacexdata.com/v4/launches/past"
+  );
+
+  let arr = [];
+
+  for (let i in response.data) {
+    const json = response.data[i];
+    var launch = parseLaunchResult(json);
+    arr.push(launch);
+  }
+
+  return arr;
+}
+
+/**
+ * Returns all of the upcoming launches from the SpaceX API.
  *
  * https://api.spacexdata.com/v4/launches/upcoming
  */
@@ -16,17 +51,7 @@ export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
   // Loop through the returned json array and parse to an LaunchResult
   for (let i in response.data) {
     const json = response.data[i];
-    var launch: LaunchResult = {
-      id: json["id"],
-      name: json["name"],
-      date: json["date_utc"],
-      details: json["details"],
-      rocket: json["rocket"],
-      launchpad: json["launchpad"],
-      upcoming: json["upcoming"],
-      capsule: json["capsules"]?.length > 0 ? json["capsules"][0] : undefined,
-      crew: json["crew"],
-    };
+    var launch = parseLaunchResult(json);
     // Add to array to be returned
     arr.push(launch);
   }
@@ -47,6 +72,19 @@ export interface LaunchResult {
   crew?: string[];
 }
 
+function parseRocketResult(json: any): RocketResult {
+  return {
+    name: json["name"],
+    active: json["active"],
+    description: json["description"],
+    imgUrls: json["flickr_images"],
+    firstFlight: json["first_flight"],
+    successRate: json["success_rate_pct"],
+    cost: json["cost_per_launch"],
+    weight: json["mass"]["lb"],
+  };
+}
+
 /**
  * Returns detailed info about the rocket from the SpaceX api
  *
@@ -61,14 +99,7 @@ export async function fetchRocket(rocket: string): Promise<RocketResult> {
   const json = response.data;
 
   // Use the results of the network request to obtain the needed data from the JSON file
-  return {
-    name: json["name"],
-    active: json["active"],
-    description: json["description"],
-    imgUrls: json["flickr_images"],
-    firstFlight: json["first_flight"],
-    successRate: json["success_rate_pct"],
-  };
+  return parseRocketResult(json);
 }
 
 /**
@@ -83,14 +114,7 @@ export async function fetchRockets(): Promise<RocketResult[]> {
 
   for (let i in response.data) {
     const json = response.data[i];
-    var rocket: RocketResult = {
-      name: json["name"],
-      active: json["active"],
-      description: json["description"],
-      imgUrls: json["flickr_images"],
-      firstFlight: json["first_flight"],
-      successRate: json["success_rate_pct"],
-    };
+    var rocket = parseRocketResult(json);
     rockets.push(rocket);
   }
 
@@ -107,6 +131,8 @@ interface RocketResult {
   active: boolean;
   firstFlight: string;
   successRate: number;
+  cost: number;
+  weight: number;
 }
 
 /**

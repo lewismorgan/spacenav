@@ -7,10 +7,17 @@ import "fontsource-space-mono";
 import "fontsource-abel";
 import "fontsource-electrolize";
 
+// Find an element that has 'lds-dual-ring'
+const loader = document.querySelector(".lds-dual-ring");
+
+const handleOnMounted = () => {
+  loader?.classList.add("lds-dual-ring--hide");
+};
+
 // Injects the App component into the HTML DOM using JSX
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App onMounted={handleOnMounted} />
   </React.StrictMode>,
   document.getElementById("root")
 );

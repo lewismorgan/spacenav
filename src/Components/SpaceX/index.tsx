@@ -8,11 +8,10 @@ import {
   fetchRockets,
 } from "../../Network";
 import { Rocket } from "../Rockets/Rockets";
-import { UpcomingLaunch } from "../Upcoming/Upcoming";
+import { LaunchItem } from "../Upcoming/Upcoming";
 import SpacexLaunchInfo from "./SpacexLaunchInfo";
 
-// Both of these hooks are used frequently,
-
+/** Fetches upcoming rocket launches and assigns results as a state */
 export function useUpcomingLaunches() {
   const [launches, setLaunches] = useState(Array<LaunchResult>());
 
@@ -46,9 +45,10 @@ export function useUpcomingLaunches() {
   return launches;
 }
 
-export function useUpcomingLaunchDetails(launchResults: LaunchResult[]) {
+/** Fetches details from launch results */
+export function useLaunchDetails(launchResults: LaunchResult[]) {
   // Fetch extended launch detail from the upcoming and assign it to the upcoming state variable
-  const [data, setData] = useState(Array<UpcomingLaunch>());
+  const [data, setData] = useState(Array<LaunchItem>());
   useEffect(() => {
     // Create new function that asynchronously fetches data
     const fetchData = async () => {
@@ -62,7 +62,7 @@ export function useUpcomingLaunchDetails(launchResults: LaunchResult[]) {
         const capsule =
           result?.capsule != null ? await fetchCapsule(result?.capsule) : null;
 
-        const launch: UpcomingLaunch = {
+        const launch: LaunchItem = {
           name: result.name,
           date: result.date,
           capsule: capsule?.name ?? "",
@@ -82,10 +82,10 @@ export function useUpcomingLaunchDetails(launchResults: LaunchResult[]) {
       });
 
       // Resolves all the promises from mapping the launches.
-      const currentLaunches = await Promise.all(launches);
+      const details = await Promise.all(launches);
 
       // Resolve all the promises before assigning to the new state
-      setData(currentLaunches);
+      setData(details);
     };
     // Begin fetching the data
     fetchData();
@@ -94,6 +94,7 @@ export function useUpcomingLaunchDetails(launchResults: LaunchResult[]) {
   return data;
 }
 
+/** Fetches all of the rockets and assigns it as a state */
 export function useRockets() {
   const [rockets, setRockets] = useState([] as Rocket[]);
   useEffect(() => {
@@ -107,6 +108,8 @@ export function useRockets() {
           firstFlight: result.firstFlight,
           successRate: result.successRate,
           active: result.active,
+          cost: result.cost,
+          weight: result.weight,
         } as Rocket;
       });
       setRockets(rockets);

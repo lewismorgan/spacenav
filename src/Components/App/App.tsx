@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./App.css";
 import {
   Container,
@@ -9,12 +9,8 @@ import {
 import CountdownSelector, {
   LaunchCountdown,
 } from "../Countdown/CountdownSelector";
-import {
-  useRockets,
-  useUpcomingLaunchDetails,
-  useUpcomingLaunches,
-} from "../SpaceX";
-import UpcomingLaunches from "../Upcoming/Upcoming";
+import { useRockets, useLaunchDetails, useUpcomingLaunches } from "../SpaceX";
+import LaunchTable from "../Upcoming/Upcoming";
 import { Rockets } from "../Rockets/Rockets";
 
 /** Define defaults for header typography since you have to specify all headers */
@@ -41,11 +37,15 @@ const theme = createMuiTheme({
   },
 });
 
+export interface AppProps {
+  onMounted: () => void;
+}
+
 /** The main entry point for the application */
-function App() {
-  // Fetch the needed data to pass down into the components
-  const launches = useUpcomingLaunches();
-  const launchDetails = useUpcomingLaunchDetails(launches);
+const App = (props: AppProps) => {
+  // Fetch all the needed data to pass down into the components
+  const upcomingLaunches = useUpcomingLaunches();
+  const upcomingDetails = useLaunchDetails(upcomingLaunches);
   const rockets = useRockets();
 
   // Create a state that holds the map launch countdowns
@@ -53,14 +53,20 @@ function App() {
   useEffect(() => {
     // Map the existing launches to a LaunchCountdown for the countdown component
     setCountdowns(
-      launches.map(
+      upcomingLaunches.map(
         (launch): LaunchCountdown => {
           return { name: launch.name, unixLaunchTime: launch.date };
         }
       )
     );
     return () => {};
-  }, [launches]);
+  }, [upcomingLaunches]);
+
+  // Keep track if components are still loading
+  useLayoutEffect(() => {
+    props.onMounted();
+    return () => {};
+  }, [props]);
 
   // Render the content
   return (
@@ -72,7 +78,7 @@ function App() {
         </div>
       </Container>
       <ContentContainer name="Scheduled Launches">
-        <UpcomingLaunches upcoming={launchDetails} />
+        <LaunchTable items={upcomingDetails} />
       </ContentContainer>
       <ContentContainer name="Rockets">
         <Rockets rockets={rockets} />
@@ -80,17 +86,18 @@ function App() {
       <Footer />
     </ThemeProvider>
   );
-}
+};
 
 /** Create the content to display on the footer */
 const Footer = () => {
   return (
     <div className="footer">
       <div>
-        <span>Created by Lewis Morgan</span>
+        <span>Created by&nbsp;</span>
+        <a href="https://github.com/lewismorgan">Lewis Morgan</a>
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <span>Data retrieved from&nbsp;</span>
+        <span>Data retrieved from the&nbsp;</span>
         <a href="https://github.com/r-spacex/SpaceX-API">r-spacex/SpaceX API</a>
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>

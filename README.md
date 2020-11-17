@@ -2,9 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0040183c-5ca5-4fc0-bc07-7f66f0dd7815/deploy-status)](https://app.netlify.com/sites/spacenav/deploys)
 
-Displays data about SpaceX rocket launches
+Displays data about SpaceX rocket launches within a React App. Data retrieved from the [r-spaceX/SpaceX-API](https://github.com/r-spacex/SpaceX-API).
 
-Created as my project for ISM 4300.
+Created as final class project for ISM 4300 at the University of South Florida, Tampa.
 
 Site is deployed to <https://spacenav.netlify.app/>.
 
@@ -20,16 +20,16 @@ Objectives:
 
 Task List:
 
+- [ ] Loading screen
 - [x] Show the upcoming launches
 - [x] Countdown banner for the closest launch
+- [ ] Show ~5 previous launches
 - [x] Show carded stats for 4 rockets: Falcon, Falcon 9, Falcon Heavy, and Starship (which has yet to launch)
   - [x] Description
-  - [ ] Height
-  - [ ] Engines
-  - [ ] Cost
+  - [x] Weight
+  - [x] Cost
   - [x] In Service Since...
   - [x] Success rate
-- [ ] Toggle between displaying upcoming launches or previous launches
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
