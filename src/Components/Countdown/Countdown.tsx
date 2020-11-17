@@ -1,9 +1,9 @@
-import { Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { setInterval } from "timers";
 import "./Countdown.css";
 
 export interface CountdownProps {
+  /** When the countdown should reach 0 */
   endTime: string;
 }
 
@@ -14,6 +14,7 @@ interface CountdownTime {
   seconds: number;
 }
 
+/** From the provided end parameter, determine the days/hours/minutes/seconds until 0 */
 function calculateCountdown(end: number): CountdownTime {
   const now = new Date().getTime();
   const difference = end - now;
@@ -34,15 +35,17 @@ function calculateCountdown(end: number): CountdownTime {
   };
 }
 
+/** Renders a component that counts down from the current time all the way to 0 based on the properties of the component  */
 export default function Countdown(props: CountdownProps) {
   const { endTime } = props;
   // Set the state to start the countdown from the current property value
   const end = new Date(endTime).getTime();
+  // Determine an initial countdown value and use that as the initial state
   const [countdown, setCountdown] = useState(calculateCountdown(end));
 
   // Create an effect that re-calculates the countdown every second if the endTime changes
   useEffect(() => {
-    // Only render when the component is mounted
+    // Only change state when the component is mounted to prevent flashing
     let isMounted = true;
     // Interval function that checks to make sure component is mounted before state change
     const interval = setInterval(() => {
@@ -60,10 +63,8 @@ export default function Countdown(props: CountdownProps) {
   }, [end]);
 
   return (
-    <div className="countdown-ticker">
-      <Typography variant="h1">
-        {`${countdown.days}d:${countdown.hours}h:${countdown.minutes}m:${countdown.seconds}s`}
-      </Typography>
-    </div>
+    <span className="countdown-ticker">
+      {`${countdown.days}d:${countdown.hours}h:${countdown.minutes}m:${countdown.seconds}s`}
+    </span>
   );
 }

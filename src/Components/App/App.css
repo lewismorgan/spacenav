@@ -2,12 +2,17 @@
   display: flex;
   flex-direction: column;
   padding: 0.69rem;
-  /* Take up half the screen for countdown */
+  /* Make the container scrollable if it overflows instead of clipping */
+  overflow-x: auto;
+  /* Take up half of the screen for countdown */
   height: 50vh;
-  margin: 0.69rem 0 0.69rem 0;
 }
 
-.countdown-container h3 {
+.content-container {
+  margin: 0.69rem;
+}
+
+.content-container h3 {
   margin: 0.25rem;
   padding-bottom: 0.25rem;
   color: white;

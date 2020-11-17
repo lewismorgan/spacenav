@@ -9,9 +9,13 @@ import React, { useState } from "react";
 import Countdown from "./Countdown";
 import "./Countdown.css";
 
+export interface LaunchCountdown {
+  name: string;
+  unixLaunchTime: string;
+}
 export interface CountdownSelectorProps {
   /** Tuple of launch names with the time as a unix string */
-  countdowns: string[][];
+  countdowns: LaunchCountdown[];
 }
 
 const useStyles = makeStyles({
@@ -28,16 +32,50 @@ const useStyles = makeStyles({
   },
 });
 
-export const CountdownSelector = (props: CountdownSelectorProps) => {
+/** Fragment component that contains dropdown selection of countdown times and a countdown ticker */
+const CountdownSelector = (props: CountdownSelectorProps) => {
   const { countdowns } = props;
   // Countdowns is stored as a tuple of launch name 0, launch time 1
-  const names = countdowns.map((item) => item[0]);
-  const times = countdowns.map((item) => item[1]);
+  const names = countdowns.map((item) => item.name);
+  const times = countdowns.map((item) => item.unixLaunchTime);
+
+  // Use the first entry for the selected countdown value
+  const [value, setValue] = useState(0);
+
+  const handleSelectionChanged = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setValue(event.target.value as number);
+  };
+
+  return (
+    <React.Fragment>
+      <div className="countdown-header">
+        <Typography variant="h3">{`Countdown Until`}</Typography>
+        <CountdownSelect
+          selectedIndex={value}
+          items={names}
+          onSelectionChanged={handleSelectionChanged}
+        />
+      </div>
+      <div className="countdown-content">
+        <Countdown endTime={times[value]} />
+      </div>
+    </React.Fragment>
+  );
+};
+
+export interface CountdownSelectProps {
+  selectedIndex: number;
+  items: string[];
+  onSelectionChanged: (event: React.ChangeEvent<{ value: unknown }>) => void;
+}
+
+const CountdownSelect = (props: CountdownSelectProps) => {
+  const { selectedIndex, items, onSelectionChanged } = props;
 
   // Track the state of the picker being open or closed
   const [open, setOpen] = useState(false);
-  // Use the first entry for the selected countdown value
-  const [value, setValue] = useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,33 +85,24 @@ export const CountdownSelector = (props: CountdownSelectorProps) => {
     setOpen(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setValue(event.target.value as number);
-  };
-
   const classes = useStyles();
-
   return (
-    <div className="countdown-container">
-      <div className="countdown-selector">
-        <Typography variant="h3">{`Countdown Until`}</Typography>
-        <Select
-          className="picker"
-          open={open}
-          onOpen={handleOpen}
-          onClose={handleClose}
-          onChange={handleChange}
-          value={value}
-          input={<Input classes={classes} />}
-        >
-          {names.map((item, index) => (
-            <MenuItem key={item} value={index}>
-              {item}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
-      <Countdown endTime={times[value]} />
-    </div>
+    <Select
+      className="picker"
+      open={open}
+      onOpen={handleOpen}
+      onClose={handleClose}
+      onChange={onSelectionChanged}
+      value={selectedIndex}
+      input={<Input classes={classes} />}
+    >
+      {items.map((item, index) => (
+        <MenuItem key={item} value={index}>
+          {item}
+        </MenuItem>
+      ))}
+    </Select>
   );
 };
+
+export default CountdownSelector;

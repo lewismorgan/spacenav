@@ -1,30 +1,30 @@
-.countdown-ticker h1 {
-  font-family: "Electrolize";
-  font-style: normal;
-  font-variant: normal;
-  letter-spacing: 0.12rem;
+.countdown-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.countdown-content {
+  padding-top: 2.5rem;
+  margin: auto;
 }
 
 .countdown-ticker {
   display: flex;
   flex-direction: row;
-  /* Ensure the ticker fills all of the parents remaining height with margin */
-  margin: auto;
+  font-family: "Electrolize";
+  font-style: normal;
+  font-variant: normal;
+  font-size: 6rem;
+  letter-spacing: 0.12rem;
   color: white;
-  /* Take up as much space width as the parent allows us to */
-  width: 100%;
   /* Center within the container */
   justify-content: center;
 }
 
-.countdown-selector {
-  display: flex;
-  flex-direction: row;
-}
-
-.countdown-selector .picker {
-  font-family: "Electrolize";
-  letter-spacing: 0.25rem;
-  font-size: 2rem;
-  margin-left: 1rem;
+.picker {
+  margin: auto auto auto 1rem;
+  font-family: "Electrolize" !important;
+  letter-spacing: 0.25rem !important;
+  font-size: x-large !important;
 }

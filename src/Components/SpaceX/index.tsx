@@ -5,7 +5,9 @@ import {
   fetchLaunchpad,
   fetchCapsule,
   LaunchResult,
+  fetchRockets,
 } from "../../Network";
+import { Rocket } from "../Rockets/Rockets";
 import { UpcomingLaunch } from "../Upcoming/Upcoming";
 import SpacexLaunchInfo from "./SpacexLaunchInfo";
 
@@ -44,18 +46,14 @@ export function useUpcomingLaunches() {
   return launches;
 }
 
-// TODO: Accept a parameter for the upcoming launches already obtained instead of using the hook
-export function useUpcomingLaunchDetails() {
-  // Bind the state to the info obtained from upcoming launches
-  const upcoming = useUpcomingLaunches();
-
+export function useUpcomingLaunchDetails(launchResults: LaunchResult[]) {
   // Fetch extended launch detail from the upcoming and assign it to the upcoming state variable
   const [data, setData] = useState(Array<UpcomingLaunch>());
   useEffect(() => {
     // Create new function that asynchronously fetches data
     const fetchData = async () => {
       // Transform the exisiting upcoming launches to perform additional network requests
-      const launches = upcoming.map(async (result) => {
+      const launches = launchResults.map(async (result) => {
         // Map each item to an UpcomingLaunch interface
 
         const rocket = await fetchRocket(result.rocket);
@@ -91,7 +89,32 @@ export function useUpcomingLaunchDetails() {
     };
     // Begin fetching the data
     fetchData();
-  }, [upcoming]);
+  }, [launchResults]);
 
   return data;
+}
+
+export function useRockets() {
+  const [rockets, setRockets] = useState([] as Rocket[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Obtain all the rockets and map to a property for Rockets element
+      const rockets = (await fetchRockets()).map((result) => {
+        return {
+          name: result.name,
+          description: result.description,
+          imgUrl: result.imgUrls[0],
+          firstFlight: result.firstFlight,
+          successRate: result.successRate,
+          active: result.active,
+        } as Rocket;
+      });
+      setRockets(rockets);
+    };
+
+    fetchData();
+    return () => {};
+  }, []);
+
+  return rockets;
 }

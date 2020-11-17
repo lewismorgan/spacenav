@@ -45,10 +45,8 @@ function DetailsContainer(props: { details: string }) {
   );
 }
 
-/** Fragment for a section that lists out the crew for the mission */
+/** Component for a section that lists out the crew for the mission */
 function CrewContainer(props: { crewIds: string[] }) {
-  // TODO: Sort by Agency -> Name (last)
-
   const { crewIds } = props;
   const [data, setData] = useState({
     crewMembers: Array<CrewMember>(),
@@ -57,7 +55,6 @@ function CrewContainer(props: { crewIds: string[] }) {
   // Fetch information about the crew, if it has one
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Fetching crew information");
       if (crewIds == null || crewIds.length === 0) {
         // no crew data to fetch
         return;
@@ -82,14 +79,12 @@ function CrewContainer(props: { crewIds: string[] }) {
   }, [crewIds]);
 
   return (
-    <React.Fragment>
-      <Container className="crew-container">
-        <Typography className="spacex-info-header" variant="h4">
-          Crew
-        </Typography>
-        <LaunchCrew crew={data.crewMembers}></LaunchCrew>
-      </Container>
-    </React.Fragment>
+    <Container className="crew-container">
+      <Typography className="spacex-info-header" variant="h4">
+        Crew
+      </Typography>
+      <LaunchCrew crew={data.crewMembers}></LaunchCrew>
+    </Container>
   );
 }
 

@@ -127,6 +127,7 @@ function Row(props: { row: UpcomingLaunch }) {
   );
 }
 
+/** Formats the date to the current locale */
 function formatDate(dateUtc: string): string {
   let date = new Date(dateUtc);
   return date.toLocaleString();

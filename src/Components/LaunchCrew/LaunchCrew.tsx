@@ -17,7 +17,7 @@ const LaunchCrew = (props: LaunchCrewProps) => {
   const members = props.crew.map((item) => {
     return (
       <div key={item.name} className="crew-member">
-        <CrewMemberItem member={item}></CrewMemberItem>
+        <CrewMemberItem member={item} />
       </div>
     );
   });
@@ -25,6 +25,7 @@ const LaunchCrew = (props: LaunchCrewProps) => {
   return <div className="crew">{members}</div>;
 };
 
+/** Renders a fragment that contains an image and a name of the crew member */
 function CrewMemberItem(props: { member: CrewMember }) {
   const { member } = props;
   return (

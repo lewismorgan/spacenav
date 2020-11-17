@@ -3,6 +3,7 @@ import "./Rockets.css";
 import React from "react";
 import { Paper, Typography } from "@material-ui/core";
 
+/** Details about a rocket used for rendering */
 export interface Rocket {
   name: string;
   description: string;
@@ -13,9 +14,11 @@ export interface Rocket {
 }
 
 export interface RocketsProps {
+  /** Details about the rockets to render */
   rockets: Rocket[];
 }
 
+/** Fragment that contains rendered information about a rocket */
 function RocketItem(props: { rocket: Rocket }) {
   const { rocket } = props;
 
@@ -46,6 +49,7 @@ function RocketItem(props: { rocket: Rocket }) {
   );
 }
 
+/** Rocket statistic item that contains a title and value */
 function RocketStat(props: {
   title: string;
   value: string;
@@ -54,15 +58,14 @@ function RocketStat(props: {
   const { title, value, style } = props;
 
   return (
-    <React.Fragment>
-      <div className="rocket-stat">
-        <span>{`${title}:`}</span>
-        <span style={style}>{value}</span>
-      </div>
-    </React.Fragment>
+    <div className="rocket-stat">
+      <span>{`${title}:`}</span>
+      <span style={style}>{value}</span>
+    </div>
   );
 }
 
+/** Displays detailed information about the rockets in a flexible row of cards  */
 export const Rockets = (props: RocketsProps) => {
   const { rockets } = props;
 
