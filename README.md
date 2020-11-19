@@ -15,9 +15,6 @@ Project Objectives:
 - Retrieve data from an external API and display with React
 - Learn the React framework: React Hooks, component lifecycles, determining when to "lift state up", better understand modularity
 - Learn TypeScript
-- Time Permits: Learn Redux
-  - State: Selected countdown, launches & details, rockets
-- Time Permits: Learn unit testing for web apps (Jest)
 
 ![preview](./.github/preview.png)
 
@@ -33,7 +30,7 @@ The launch table is populated from data available on the API listing all of the 
 
 **_NOTE:_** There is an API limitation in available launch time data. Many of the launches only have an estimate by month, so it's set to being at the end of the month. Once launch day gets closer the times change to data from officialy available sources instead of speculation and estimation by API maintainers.
 
-Upon scrolling past the scheduled launch table, information about all of SpaceX's rockets (current, past, and upcoming) are available. A card is shown for each rocket that SpaceX has created, sorted by the activity status and date flights for the rockets. All content that populates the card (name/dates/costs/weight/description/img) is taken from the API. As such, new rockets will automatically be added to the application if the API adds a new rocket.
+Upon scrolling past the scheduled launch table, information about all of SpaceX's rockets (current, past, and upcoming) are available. A card is shown for each rocket that SpaceX has created, sorted by the activity status and date flights for the rockets. All content that populates the card (name/dates/costs/weight/description/img) is taken from the API. The images uses a custom react component to iterate between the different images provided by the API between a random time interval. Since all the data is pulled from the API, new rockets will automatically be added.
 
 ## Available Scripts
 
