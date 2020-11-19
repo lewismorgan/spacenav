@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   fetchUpcomingLaunches,
   fetchRocket,
@@ -9,11 +9,12 @@ import {
 } from "../../Network";
 import { Rocket } from "../Rockets/Rockets";
 import { LaunchItem } from "../Upcoming/Upcoming";
-import SpacexLaunchInfo from "./SpacexLaunchInfo";
 
 /** Fetches upcoming rocket launches and assigns results as a state */
-export function useUpcomingLaunches() {
-  const [launches, setLaunches] = useState(Array<LaunchResult>());
+export function useUpcomingLaunches(): LaunchResult[] {
+  const [upcomingLaunches, setUpcomingLaunches] = useState(
+    new Array<LaunchResult>()
+  );
 
   useEffect(() => {
     // Create new function that asynchronously fetches data
@@ -36,19 +37,19 @@ export function useUpcomingLaunches() {
         });
 
       // Closest launch date was set as the first index in the array
-      setLaunches(sortedLaunches);
+      setUpcomingLaunches(sortedLaunches);
     };
     fetchData();
     return () => {};
   }, []);
 
-  return launches;
+  return upcomingLaunches;
 }
 
 /** Fetches details from launch results */
-export function useLaunchDetails(launchResults: LaunchResult[]) {
+export function useLaunchDetails(launchResults: LaunchResult[]): LaunchItem[] {
   // Fetch extended launch detail from the upcoming and assign it to the upcoming state variable
-  const [data, setData] = useState(Array<LaunchItem>());
+  const [data, setData] = useState(new Array<LaunchItem>());
   useEffect(() => {
     // Create new function that asynchronously fetches data
     const fetchData = async () => {
@@ -60,7 +61,9 @@ export function useLaunchDetails(launchResults: LaunchResult[]) {
         const launchpad = await fetchLaunchpad(result.launchpad);
         // Attempt to fetch the capsule if it exists for this launch
         const capsule =
-          result?.capsule != null ? await fetchCapsule(result?.capsule) : null;
+          result?.capsule !== undefined
+            ? await fetchCapsule(result?.capsule)
+            : undefined;
 
         const launch: LaunchItem = {
           name: result.name,
@@ -69,13 +72,8 @@ export function useLaunchDetails(launchResults: LaunchResult[]) {
           rocket: rocket.name,
           launchpad: launchpad.name,
           location: `${launchpad.locality}, ${launchpad.region}`,
-          child:
-            result.details != null ? (
-              <SpacexLaunchInfo
-                details={result.details}
-                crewIds={result.crew}
-              />
-            ) : null,
+          description: result.details,
+          crew: result.crew,
         };
         // Return a UpcomingLaunch, expected by the UpcomingLaunches component
         return launch;
@@ -95,12 +93,12 @@ export function useLaunchDetails(launchResults: LaunchResult[]) {
 }
 
 /** Fetches all of the rockets and assigns it as a state */
-export function useRockets() {
+export function useRockets(): Rocket[] {
   const [rockets, setRockets] = useState([] as Rocket[]);
   useEffect(() => {
     const fetchData = async () => {
       // Obtain all the rockets and map to a property for Rockets element
-      const rockets = (await fetchRockets()).map((result) => {
+      const fetchedRockets = (await fetchRockets()).map((result) => {
         return {
           name: result.name,
           description: result.description,
@@ -112,7 +110,7 @@ export function useRockets() {
           weight: result.weight,
         } as Rocket;
       });
-      setRockets(rockets);
+      setRockets(fetchedRockets);
     };
 
     fetchData();

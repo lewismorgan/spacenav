@@ -1,14 +1,15 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseLaunchResult(json: any): LaunchResult {
   return {
-    id: json["id"],
-    name: json["name"],
-    date: json["date_utc"],
-    details: json["details"],
-    rocket: json["rocket"],
-    launchpad: json["launchpad"],
-    upcoming: json["upcoming"],
-    capsule: json["capsules"]?.length > 0 ? json["capsules"][0] : undefined,
-    crew: json["crew"],
+    id: json.id,
+    name: json.name,
+    date: json.date_utc,
+    details: json.details,
+    rocket: json.rocket,
+    launchpad: json.launchpad,
+    upcoming: json.upcoming,
+    capsule: json.capsules?.length > 0 ? json.capsules[0] : undefined,
+    crew: json.crew,
   };
 }
 
@@ -21,13 +22,12 @@ export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
   const response = await fetch("https://api.spacexdata.com/v4/launches/past");
   const content = await response.json();
 
-  let arr = [];
+  const arr: LaunchResult[] = [];
 
-  for (let i in content) {
-    const json = content[i];
-    var launch = parseLaunchResult(json);
-    arr.push(launch);
-  }
+  // Loop through and parse the launches
+  Object.entries(content).forEach(([, value]) => {
+    arr.push(parseLaunchResult(value));
+  });
 
   return arr;
 }
@@ -44,15 +44,12 @@ export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
   );
   const content = await response.json();
 
-  let arr = [];
+  const arr: LaunchResult[] = [];
 
-  // Loop through the returned json array and parse to an LaunchResult
-  for (let i in content) {
-    const json = content[i];
-    var launch = parseLaunchResult(json);
-    // Add to array to be returned
-    arr.push(launch);
-  }
+  // Loop through and parse the launches
+  Object.entries(content).forEach(([, value]) => {
+    arr.push(parseLaunchResult(value));
+  });
 
   // Return the launches
   return arr;
@@ -70,16 +67,17 @@ export interface LaunchResult {
   crew?: string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseRocketResult(json: any): RocketResult {
   return {
-    name: json["name"],
-    active: json["active"],
-    description: json["description"],
-    imgUrls: json["flickr_images"],
-    firstFlight: json["first_flight"],
-    successRate: json["success_rate_pct"],
-    cost: json["cost_per_launch"],
-    weight: json["mass"]["lb"],
+    name: json.name,
+    active: json.active,
+    description: json.description,
+    imgUrls: json.flickr_images,
+    firstFlight: json.first_flight,
+    successRate: json.success_rate_pct,
+    cost: json.cost_per_launch,
+    weight: json.mass.lb,
   };
 }
 
@@ -109,14 +107,12 @@ export async function fetchRockets(): Promise<RocketResult[]> {
   const response = await fetch(`https://api.spacexdata.com/v4/rockets`);
   const content = await response.json();
 
-  let rockets = [];
+  const rockets: RocketResult[] = [];
 
   // Rockets returns a list of objects
-  for (let i in content) {
-    const json = content[i];
-    var rocket = parseRocketResult(json);
-    rockets.push(rocket);
-  }
+  Object.entries(content).forEach(([, value]) => {
+    rockets.push(parseRocketResult(value));
+  });
 
   return rockets;
 }
@@ -152,9 +148,9 @@ export async function fetchLaunchpad(
 
   // Use the results of the network request to obtain the needed data from the JSON file
   return {
-    name: json["name"],
-    locality: json["locality"],
-    region: json["region"],
+    name: json.name,
+    locality: json.locality,
+    region: json.region,
   };
 }
 
@@ -180,7 +176,7 @@ export async function fetchCapsule(capsule: string): Promise<CapsuleResult> {
   );
   const json = await response.json();
 
-  return { name: json["type"] };
+  return { name: json.type };
 }
 
 /**
@@ -201,9 +197,9 @@ export async function fetchCrewMember(crew: string): Promise<CrewMemberResult> {
   const json = await response.json();
 
   return {
-    name: json["name"],
-    agency: json["agency"],
-    image: json["image"],
+    name: json.name,
+    agency: json.agency,
+    image: json.image,
   };
 }
 

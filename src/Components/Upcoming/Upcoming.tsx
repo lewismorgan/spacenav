@@ -12,6 +12,7 @@ import {
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./Upcoming.css";
 import React from "react";
+import SpacexLaunchInfo from "../SpaceX/SpacexLaunchInfo";
 
 export interface LaunchItem {
   /** Unique name for this launch */
@@ -22,10 +23,8 @@ export interface LaunchItem {
   launchpad: string;
   location: string;
   capsule?: string;
-  /**
-   * Additional content to display when expanding
-   */
-  child?: any;
+  description?: string;
+  crew?: string[];
 }
 
 interface LaunchTableProps {
@@ -35,36 +34,18 @@ interface LaunchTableProps {
   items: LaunchItem[];
 }
 
-/**
- * Creates a table that shows a list of rocket launches
- * @param props
- */
-const LaunchTable: React.FunctionComponent<LaunchTableProps> = (props) => {
-  const { items } = props;
+/** Formats the date to the current locale */
+function formatDate(dateUtc: string): string {
+  const date = new Date(dateUtc);
+  return date.toLocaleString();
+}
+
+function hasExpandableContent(item: LaunchItem): boolean {
   return (
-    <TableContainer component={Paper}>
-      <Table className="upcoming-launch-table" aria-label="table">
-        <TableHead>
-          <TableRow className="upcoming-launch-header">
-            <TableCell />
-            {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
-            <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Rocket</TableCell>
-            <TableCell>Launchpad</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Capsule</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((row) => (
-            <Row key={row.name} row={row}></Row>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    (item?.crew !== undefined && item?.crew?.length > 0) ||
+    (item?.description !== undefined && item?.description?.length > 0)
   );
-};
+}
 
 /**
  * React fragment specifically for the table rows so state can be maintained for detail expansion
@@ -99,7 +80,9 @@ function Row(props: { row: LaunchItem }) {
       {/* Remove the padding so it doesnt show a gap between rows */}
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {row.child !== undefined ? row.child : null}
+          {hasExpandableContent(row) ? (
+            <SpacexLaunchInfo details={row.description} crewIds={row.crew} />
+          ) : undefined}
         </Collapse>
       </TableCell>
     </TableRow>
@@ -107,11 +90,11 @@ function Row(props: { row: LaunchItem }) {
 
   // Returns around fragment to prevent nested indentation when mapping the list during table creation
   return (
-    <React.Fragment>
+    <>
       <TableRow className="upcoming-launch-row">
         {
           // Only display the expansion cell if there are children otherwise return an empty cell
-          row.child != null ? expansionCell : <TableCell />
+          hasExpandableContent(row) ? expansionCell : <TableCell />
         }
         <TableCell>{row.name}</TableCell>
         <TableCell align="left">{formatDate(row.date)}</TableCell>
@@ -120,15 +103,41 @@ function Row(props: { row: LaunchItem }) {
         <TableCell align="left">{row.location}</TableCell>
         <TableCell align="left">{row.capsule}</TableCell>
       </TableRow>
-      {row.child != null ? expansionRow : null}
-    </React.Fragment>
+      {hasExpandableContent(row) ? expansionRow : undefined}
+    </>
   );
 }
 
-/** Formats the date to the current locale */
-function formatDate(dateUtc: string): string {
-  let date = new Date(dateUtc);
-  return date.toLocaleString();
-}
+/**
+ * Creates a table that shows a list of rocket launches
+ * @param props
+ */
+const LaunchTable: React.FC<LaunchTableProps> = ({
+  items,
+}: LaunchTableProps) => {
+  return (
+    <TableContainer component={Paper}>
+      <Table className="upcoming-launch-table" aria-label="table">
+        <TableHead>
+          <TableRow className="upcoming-launch-header">
+            <TableCell />
+            {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
+            <TableCell>Name</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Rocket</TableCell>
+            <TableCell>Launchpad</TableCell>
+            <TableCell>Location</TableCell>
+            <TableCell>Capsule</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {items.map((row) => (
+            <Row key={row.name} row={row} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
 
 export default LaunchTable;

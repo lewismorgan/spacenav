@@ -24,19 +24,19 @@ function calculateCountdown(end: number): CountdownTime {
   const hours = Math.floor(
     (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
   );
-  var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
   return {
-    days: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds,
+    days,
+    hours,
+    minutes,
+    seconds,
   };
 }
 
 /** Renders a component that counts down from the current time all the way to 0 based on the properties of the component  */
-export default function Countdown(props: CountdownProps) {
+const Countdown: React.FC<CountdownProps> = (props: CountdownProps) => {
   const { endTime } = props;
   // Set the state to start the countdown from the current property value
   const end = new Date(endTime).getTime();
@@ -52,8 +52,8 @@ export default function Countdown(props: CountdownProps) {
       // The component isn't mounted
       if (!isMounted) return;
       // Component mounted, determine what the countdown should be
-      const countdown = calculateCountdown(end);
-      setCountdown(countdown);
+      const calculatedCountdown = calculateCountdown(end);
+      setCountdown(calculatedCountdown);
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -67,4 +67,6 @@ export default function Countdown(props: CountdownProps) {
       {`${countdown.days}d:${countdown.hours}h:${countdown.minutes}m:${countdown.seconds}s`}
     </span>
   );
-}
+};
+
+export default Countdown;

@@ -6,42 +6,24 @@ import "./styles.css";
 
 interface SpacexLaunchInfoProps {
   /** Mission details for the launch */
-  details: string;
+  details?: string;
   /** Array of crew member ids if available */
   crewIds?: string[];
 }
-
-/**
- * Creates a component that provides in-depth information about a SpaceX launch and it's crew
- * @param props
- */
-const SpacexLaunchInfo = (props: SpacexLaunchInfoProps) => {
-  const { crewIds, details } = props;
-
-  return (
-    <div className="launch-info">
-      <DetailsContainer details={details} />
-      {/* Only build a crew container if there are crew ids */}
-      {props.crewIds != null && props.crewIds.length > 0 ? (
-        <CrewContainer crewIds={crewIds ?? []} />
-      ) : null}
-    </div>
-  );
-};
 
 /** Fragment for a section that contains info about the mission */
 function DetailsContainer(props: { details: string }) {
   const { details } = props;
 
   return (
-    <React.Fragment>
+    <>
       <Container className="details-container">
         <Typography className="spacex-info-header" variant="h4">
           Mission
         </Typography>
         <p>{details}</p>
       </Container>
-    </React.Fragment>
+    </>
   );
 }
 
@@ -49,13 +31,13 @@ function DetailsContainer(props: { details: string }) {
 function CrewContainer(props: { crewIds: string[] }) {
   const { crewIds } = props;
   const [data, setData] = useState({
-    crewMembers: Array<CrewMember>(),
+    crewMembers: new Array<CrewMember>(),
   });
 
   // Fetch information about the crew, if it has one
   useEffect(() => {
     const fetchData = async () => {
-      if (crewIds == null || crewIds.length === 0) {
+      if (crewIds === undefined || crewIds.length === 0) {
         // no crew data to fetch
         return;
       }
@@ -83,9 +65,36 @@ function CrewContainer(props: { crewIds: string[] }) {
       <Typography className="spacex-info-header" variant="h4">
         Crew
       </Typography>
-      <LaunchCrew crew={data.crewMembers}></LaunchCrew>
+      <LaunchCrew crew={data.crewMembers} />
     </Container>
   );
 }
+
+/**
+ * Creates a component that provides in-depth information about a SpaceX launch and it's crew
+ * @param props
+ */
+const SpacexLaunchInfo: React.FC<SpacexLaunchInfoProps> = ({
+  crewIds,
+  details,
+}: SpacexLaunchInfoProps): JSX.Element => {
+  return (
+    <div className="launch-info">
+      {details !== undefined && details.length > 0 ? (
+        <DetailsContainer details={details} />
+      ) : undefined}
+      {/* Only build a crew container if there are crew ids */}
+      {crewIds !== undefined && crewIds.length > 0 ? (
+        <CrewContainer crewIds={crewIds ?? []} />
+      ) : undefined}
+    </div>
+  );
+};
+
+// Assign nullable properties for the component to defaults
+SpacexLaunchInfo.defaultProps = {
+  crewIds: [],
+  details: "",
+};
 
 export default SpacexLaunchInfo;

@@ -19,6 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App onMounted={handleOnMounted} />
   </React.StrictMode>,
+  // eslint-disable-next-line unicorn/prefer-query-selector
   document.getElementById("root")
 );
 

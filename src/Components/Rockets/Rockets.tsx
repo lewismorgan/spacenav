@@ -20,6 +20,27 @@ export interface RocketsProps {
   rockets: Rocket[];
 }
 
+/** Rocket statistic item that contains a title and value */
+function RocketStat(props: {
+  title: string;
+  value: string;
+  style?: React.CSSProperties;
+}) {
+  const { title, value, style } = props;
+
+  return (
+    <div className="rocket-stat">
+      <span>{`${title}:`}</span>
+      <span style={style}>{value}</span>
+    </div>
+  );
+}
+
+// Assign default properties for nullable values
+RocketStat.defaultProps = {
+  style: undefined,
+};
+
 /** Fragment that contains rendered information about a rocket */
 function RocketItem(props: { rocket: Rocket }) {
   const { rocket } = props;
@@ -36,7 +57,7 @@ function RocketItem(props: { rocket: Rocket }) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h4">{rocket.name}</Typography>
       <img src={rocket.imgUrl} />
       <p>{rocket.description}</p>
@@ -55,36 +76,18 @@ function RocketItem(props: { rocket: Rocket }) {
         value={`$ ${rocket.cost.toLocaleString()}`}
       />
       <RocketStat title="Success Rate" value={`${rocket.successRate} %`} />
-    </React.Fragment>
-  );
-}
-
-/** Rocket statistic item that contains a title and value */
-function RocketStat(props: {
-  title: string;
-  value: string;
-  style?: React.CSSProperties;
-}) {
-  const { title, value, style } = props;
-
-  return (
-    <div className="rocket-stat">
-      <span>{`${title}:`}</span>
-      <span style={style}>{value}</span>
-    </div>
+    </>
   );
 }
 
 /** Displays detailed information about the rockets in a flexible row of cards  */
-export const Rockets = (props: RocketsProps) => {
-  const { rockets } = props;
-
+const Rockets: React.FC<RocketsProps> = ({ rockets }: RocketsProps) => {
   // Sort based on the active status of the rocket and the date
   const sortedRockets = rockets.sort((a, b) => {
     if (a.active && b.active) return 0;
-    else if (a.active && !b.active) return -1;
-    else if (a.firstFlight > b.firstFlight) return -1;
-    else return 1;
+    if (a.active && !b.active) return -1;
+    if (a.firstFlight > b.firstFlight) return -1;
+    return 1;
   });
 
   return (
@@ -97,3 +100,5 @@ export const Rockets = (props: RocketsProps) => {
     </div>
   );
 };
+
+export default Rockets;
