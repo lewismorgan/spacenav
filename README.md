@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0040183c-5ca5-4fc0-bc07-7f66f0dd7815/deploy-status)](https://app.netlify.com/sites/spacenav/deploys)
 
-Displays data about SpaceX rocket launches within a React App. Data retrieved from the [r-spaceX/SpaceX-API](https://github.com/r-spacex/SpaceX-API).
+Displays data about SpaceX rocket launches in a React App. Data retrieved from the [r-spaceX/SpaceX-API](https://github.com/r-spacex/SpaceX-API). Programmed using TypeScript.
 
 Created as final class project for ISM 4300 at the University of South Florida, Tampa.
 
@@ -12,11 +12,12 @@ Whenver there is new code published to the **master** branch, Netlify automatica
 
 Project Objectives:
 
-- Learn how to retrieve data from an external API for React
-- Learn the React framework
+- Retrieve data from an external API and display with React
+- Learn the React framework: React Hooks, component lifecycles, determining when to "lift state up", better understand modularity
 - Learn TypeScript
 - Time Permits: Learn Redux
-- Time Permits: Learn unit testing for web apps
+  - State: Selected countdown, launches & details, rockets
+- Time Permits: Learn unit testing for web apps (Jest)
 
 ![preview](./.github/preview.png)
 

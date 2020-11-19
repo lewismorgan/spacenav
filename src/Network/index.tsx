@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 function parseLaunchResult(json: any): LaunchResult {
   return {
     id: json["id"],
@@ -20,14 +18,13 @@ function parseLaunchResult(json: any): LaunchResult {
  * https://api.spacexdata.com/v4/launches/past
  */
 export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
-  const response = await Axios.get(
-    "https://api.spacexdata.com/v4/launches/past"
-  );
+  const response = await fetch("https://api.spacexdata.com/v4/launches/past");
+  const content = await response.json();
 
   let arr = [];
 
-  for (let i in response.data) {
-    const json = response.data[i];
+  for (let i in content) {
+    const json = content[i];
     var launch = parseLaunchResult(json);
     arr.push(launch);
   }
@@ -42,15 +39,16 @@ export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
  */
 export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
   // Find the latest launches
-  const response = await Axios.get(
+  const response = await fetch(
     "https://api.spacexdata.com/v4/launches/upcoming"
   );
+  const content = await response.json();
 
   let arr = [];
 
   // Loop through the returned json array and parse to an LaunchResult
-  for (let i in response.data) {
-    const json = response.data[i];
+  for (let i in content) {
+    const json = content[i];
     var launch = parseLaunchResult(json);
     // Add to array to be returned
     arr.push(launch);
@@ -93,10 +91,10 @@ function parseRocketResult(json: any): RocketResult {
  */
 export async function fetchRocket(rocket: string): Promise<RocketResult> {
   // Create the network request from rocket id
-  const response = await Axios.get(
+  const response = await fetch(
     `https://api.spacexdata.com/v4/rockets/${rocket}`
   );
-  const json = response.data;
+  const json = await response.json();
 
   // Use the results of the network request to obtain the needed data from the JSON file
   return parseRocketResult(json);
@@ -108,12 +106,14 @@ export async function fetchRocket(rocket: string): Promise<RocketResult> {
  * https://api.spacexdata.com/v4/rockets
  */
 export async function fetchRockets(): Promise<RocketResult[]> {
-  const response = await Axios.get(`https://api.spacexdata.com/v4/rockets`);
+  const response = await fetch(`https://api.spacexdata.com/v4/rockets`);
+  const content = await response.json();
 
   let rockets = [];
 
-  for (let i in response.data) {
-    const json = response.data[i];
+  // Rockets returns a list of objects
+  for (let i in content) {
+    const json = content[i];
     var rocket = parseRocketResult(json);
     rockets.push(rocket);
   }
@@ -145,10 +145,10 @@ export async function fetchLaunchpad(
   launchpad: string
 ): Promise<LaunchpadResult> {
   // Create the network request from launchpad id
-  const response = await Axios.get(
+  const response = await fetch(
     `https://api.spacexdata.com/v4/launchpads/${launchpad}`
   );
-  const json = response.data;
+  const json = await response.json();
 
   // Use the results of the network request to obtain the needed data from the JSON file
   return {
@@ -175,10 +175,10 @@ interface LaunchpadResult {
  */
 export async function fetchCapsule(capsule: string): Promise<CapsuleResult> {
   // Create the network request from launchpad id
-  const response = await Axios.get(
+  const response = await fetch(
     `https://api.spacexdata.com/v4/capsules/${capsule}`
   );
-  const json = response.data;
+  const json = await response.json();
 
   return { name: json["type"] };
 }
@@ -197,10 +197,8 @@ interface CapsuleResult {
  * @param crew
  */
 export async function fetchCrewMember(crew: string): Promise<CrewMemberResult> {
-  const response = await Axios.get(
-    `https://api.spacexdata.com/v4/crew/${crew}`
-  );
-  const json = response.data;
+  const response = await fetch(`https://api.spacexdata.com/v4/crew/${crew}`);
+  const json = await response.json();
 
   return {
     name: json["name"],
