@@ -26,11 +26,17 @@ When a user first visits the website, they're initially displayed a loading spin
 
 The application automatically populates the soonest launch and inputs the time into the countdown ticker. Alternatively, countdown times can be selected by clicking on the dropdown arrow and selecting a different launch from the pre-selected launch. The countdown ticker will automatically update with the selected time. The main component that does this work is [CountdownSelector](./src/Components/Countdown/CountdownSelector.tsx).
 
+[CountdownSelector Component](./.github/component-countdown.png)
+
 The launch table is populated from data available on the API listing all of the upcoming launches. Some launches will contain additional details about each. An upside down arrow indicating it can be "dropped down" will be shown on the furthest left hand side of the row. Clicking on the arrow will expand to reveal the additional information. Only displayed if the launch has crew data available or mission details. Mission details are usually added in by the API within a month of the launch. The main component that does this is [LaunchTable](./src/Components/Upcoming/Upcoming.tsx).
 
 **_NOTE:_** There is an API limitation in available launch time data. Many of the launches only have an estimate by month, so it's set to being at the end of the month. Once launch day gets closer the times change to data from officialy available sources instead of speculation and estimation by API maintainers.
 
-Upon scrolling past the scheduled launch table, information about all of SpaceX's rockets (current, past, and upcoming) are available. A card is shown for each rocket that SpaceX has created, sorted by the activity status and date flights for the rockets. All content that populates the card (name/dates/costs/weight/description/img) is taken from the API. The images uses a custom react component to iterate between the different images provided by the API between a random time interval. Since all the data is pulled from the API, new rockets will automatically be added. The main component that does this is [Rockets](./src/Components/Rockets/Rockets.tsx).
+[LaunchTable Component](./.github/component-launchtable.png)
+
+Information about all of SpaceX's rockets (current, past, and upcoming) are displayed. A card is shown for each rocket that SpaceX has created, sorted by the activity status and date flights for the rockets. All content that populates the card (name/dates/costs/weight/description/img) is taken from the API. The images uses a custom react component to iterate between the different images provided by the API between a random time interval. Since all the data is pulled from the API, new rockets will automatically be added. The main component that does this is [Rockets](./src/Components/Rockets/Rockets.tsx).
+
+[Rockets Component](./.github/component-rockets.png)
 
 There are certain things that can still probably be done to improve the application:
 
