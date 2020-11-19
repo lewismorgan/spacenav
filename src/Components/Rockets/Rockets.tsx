@@ -2,12 +2,14 @@
 import "./Rockets.css";
 import React from "react";
 import { Paper, Typography } from "@material-ui/core";
+import { randomInt } from "crypto";
+import AlternatingImg from "../AlternatingImg/AlternatingImg";
 
 /** Details about a rocket used for rendering */
 export interface Rocket {
   name: string;
   description: string;
-  imgUrl: string;
+  imgUrls: string[];
   firstFlight: string;
   successRate: number;
   active: boolean;
@@ -59,7 +61,12 @@ function RocketItem(props: { rocket: Rocket }) {
   return (
     <>
       <Typography variant="h4">{rocket.name}</Typography>
-      <img src={rocket.imgUrl} />
+      <AlternatingImg
+        className="rocket-img"
+        time={randomInt(4000, 10000)}
+        alt={rocket.name}
+        imgs={rocket.imgUrls}
+      />
       <p>{rocket.description}</p>
       <RocketStat
         title="Status"

@@ -20,7 +20,7 @@
   margin: 0.1rem 0 0.69rem 0;
 }
 
-.rocket img {
+.rocket-img {
   display: flex;
   /* Center the image in the container */
   margin: auto;
@@ -30,6 +30,7 @@
   border-style: solid;
   width: 145px;
   height: 150px;
+  transition: opacity 0.5s;
 }
 
 .rocket-content {

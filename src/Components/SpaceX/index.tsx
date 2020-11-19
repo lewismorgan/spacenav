@@ -102,7 +102,7 @@ export function useRockets(): Rocket[] {
         return {
           name: result.name,
           description: result.description,
-          imgUrl: result.imgUrls[0],
+          imgUrls: result.imgUrls,
           firstFlight: result.firstFlight,
           successRate: result.successRate,
           active: result.active,
