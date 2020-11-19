@@ -56,6 +56,8 @@ function Row(props: { row: LaunchItem }) {
   // Maintain the state for each row to know if it is expanded or not
   const [open, setOpen] = React.useState(false);
 
+  const isExpandable = hasExpandableContent(row);
+
   // Create a cell that modifies the state of the row based on if it's open or closed
   const expansionCell = (
     <TableCell>
@@ -80,7 +82,7 @@ function Row(props: { row: LaunchItem }) {
       {/* Remove the padding so it doesnt show a gap between rows */}
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {hasExpandableContent(row) ? (
+          {isExpandable ? (
             <SpacexLaunchInfo details={row.description} crewIds={row.crew} />
           ) : undefined}
         </Collapse>
@@ -94,7 +96,7 @@ function Row(props: { row: LaunchItem }) {
       <TableRow className="upcoming-launch-row">
         {
           // Only display the expansion cell if there are children otherwise return an empty cell
-          hasExpandableContent(row) ? expansionCell : <TableCell />
+          isExpandable ? expansionCell : <TableCell />
         }
         <TableCell>{row.name}</TableCell>
         <TableCell align="left">{formatDate(row.date)}</TableCell>
@@ -103,7 +105,7 @@ function Row(props: { row: LaunchItem }) {
         <TableCell align="left">{row.location}</TableCell>
         <TableCell align="left">{row.capsule}</TableCell>
       </TableRow>
-      {hasExpandableContent(row) ? expansionRow : undefined}
+      {isExpandable ? expansionRow : undefined}
     </>
   );
 }
