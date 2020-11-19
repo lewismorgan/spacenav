@@ -2,7 +2,6 @@
 import "./Rockets.css";
 import React from "react";
 import { Paper, Typography } from "@material-ui/core";
-import { randomInt } from "crypto";
 import AlternatingImg from "../AlternatingImg/AlternatingImg";
 
 /** Details about a rocket used for rendering */
@@ -58,12 +57,15 @@ function RocketItem(props: { rocket: Rocket }) {
     statusColor = "yellow";
   }
 
+  // Pick a random number between 4000 and 10000 for time between imgs
+  const time = Math.random() * (10000 - 4000) + 4000;
+
   return (
     <>
       <Typography variant="h4">{rocket.name}</Typography>
       <AlternatingImg
         className="rocket-img"
-        time={randomInt(4000, 10000)}
+        time={time}
         alt={rocket.name}
         imgs={rocket.imgUrls}
       />
