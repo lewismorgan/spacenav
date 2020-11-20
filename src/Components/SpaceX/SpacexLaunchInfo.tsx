@@ -77,7 +77,7 @@ function CrewContainer(props: { crewIds: string[] }) {
 const SpacexLaunchInfo: React.FC<SpacexLaunchInfoProps> = ({
   crewIds,
   details,
-}: SpacexLaunchInfoProps): JSX.Element => {
+}: SpacexLaunchInfoProps) => {
   return (
     <div className="launch-info">
       {details !== undefined && details.length > 0 ? (
