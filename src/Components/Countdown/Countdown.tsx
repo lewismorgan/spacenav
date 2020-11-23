@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { setInterval } from "timers";
+import { DateTime } from "luxon";
 import "./Countdown.css";
 
 export interface CountdownProps {
-  /** When the countdown should reach 0 */
-  endTime: string;
+  /** Unix timestamp when the countdown should reach 0 */
+  endTime: number;
 }
 
 interface CountdownTime {
@@ -15,33 +16,34 @@ interface CountdownTime {
 }
 
 /** From the provided end parameter, determine the days/hours/minutes/seconds until 0 */
-function calculateCountdown(end: number): CountdownTime {
-  const now = new Date().getTime();
-  const difference = end - now;
+function calculateCountdown(endTime: number): CountdownTime {
+  if (endTime === undefined || Number.isNaN(endTime)) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+  const endDate = DateTime.fromMillis(endTime);
+  const now = DateTime.fromJSDate(new Date(Date.now()));
 
   // Using the difference, calculate the days/hours/min/seconds from ms
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  const { days, hours, minutes, seconds } = endDate.diff(now, [
+    "day",
+    "minute",
+    "hour",
+    "seconds",
+  ]);
 
   return {
     days,
     hours,
     minutes,
-    seconds,
+    seconds: Math.round(seconds),
   };
 }
 
 /** Renders a component that counts down from the current time all the way to 0 based on the properties of the component  */
 const Countdown: React.FC<CountdownProps> = (props: CountdownProps) => {
   const { endTime } = props;
-  // Set the state to start the countdown from the current property value
-  const end = new Date(endTime).getTime();
   // Determine an initial countdown value and use that as the initial state
-  const [countdown, setCountdown] = useState(calculateCountdown(end));
+  const [countdown, setCountdown] = useState(calculateCountdown(endTime));
 
   // Create an effect that re-calculates the countdown every second if the endTime changes
   useEffect(() => {
@@ -52,7 +54,7 @@ const Countdown: React.FC<CountdownProps> = (props: CountdownProps) => {
       // The component isn't mounted
       if (!isMounted) return;
       // Component mounted, determine what the countdown should be
-      const calculatedCountdown = calculateCountdown(end);
+      const calculatedCountdown = calculateCountdown(endTime);
       setCountdown(calculatedCountdown);
     }, 1000);
     return () => {
@@ -60,7 +62,7 @@ const Countdown: React.FC<CountdownProps> = (props: CountdownProps) => {
       // Component was disposed, changed isMounted to false
       isMounted = false;
     };
-  }, [end]);
+  }, [endTime]);
 
   return (
     <span className="countdown-ticker">

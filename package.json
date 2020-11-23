@@ -7,18 +7,20 @@
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/user-event": "^12.2.2",
     "@types/jest": "^26.0.15",
+    "@types/luxon": "^1.25.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "fontsource-abel": "^3.0.9",
     "fontsource-electrolize": "^3.0.9",
     "fontsource-space-mono": "^3.0.9",
+    "luxon": "^1.25.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
-    "typescript": "^4.0.3",
+    "typescript": "~4.0.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -48,6 +50,7 @@
       "prettier/@typescript-eslint"
     ],
     "rules": {
+      "eslint/no-restricted-syntax": "off",
       "unicorn/prevent-abbreviations": "off",
       "unicorn/filename-case": "off",
       "unicorn/no-abusive-eslint-disable": "off"
@@ -66,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.28.1",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.11.0",

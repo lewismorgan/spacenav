@@ -11,7 +11,8 @@ import "./Countdown.css";
 
 export interface LaunchCountdown {
   name: string;
-  unixLaunchTime: string;
+  // launchTimes: number;
+  endTime: number;
 }
 
 export interface CountdownSelectProps {
@@ -78,8 +79,9 @@ const CountdownSelector: React.FC<CountdownSelectorProps> = ({
   countdowns,
 }: CountdownSelectorProps) => {
   // Countdowns is stored as a tuple of launch name 0, launch time 1
-  const names = countdowns.map((item) => item.name);
-  const times = countdowns.map((item) => item.unixLaunchTime);
+  const sortedCountdowns = countdowns.sort((a, b) => a.endTime - b.endTime);
+  const names = sortedCountdowns.map((item) => item.name);
+  const times = sortedCountdowns.map((item) => item.endTime);
 
   // Use the first entry for the selected countdown value
   const [value, setValue] = useState(0);

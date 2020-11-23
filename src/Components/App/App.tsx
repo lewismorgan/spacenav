@@ -135,7 +135,10 @@ const App: React.FC<AppProps> = ({ onMounted }: AppProps) => {
     setCountdowns(
       upcomingLaunches.map(
         (launch): LaunchCountdown => {
-          return { name: launch.name, unixLaunchTime: launch.date };
+          return {
+            name: launch.name,
+            endTime: new Date(launch.date).getTime(),
+          };
         }
       )
     );
