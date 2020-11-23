@@ -77,7 +77,7 @@ describe("<Rockets />", () => {
     });
 
     expect(getByText(testRocket.name)).toHaveTextContent(testRocket.name);
-    expect(getByAltText(testRocket.name)).toHaveAttribute(
+    expect(getByAltText(`${testRocket.name}-0`)).toHaveAttribute(
       "src",
       testRocket.imgUrls[0]
     );
