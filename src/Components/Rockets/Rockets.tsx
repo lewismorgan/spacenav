@@ -1,6 +1,6 @@
 import './Rockets.css';
 import React from 'react';
-import {Paper, Typography} from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import AlternatingImg from '../AlternatingImg/AlternatingImg';
 
 /** Details about a rocket used for rendering */
@@ -22,7 +22,7 @@ export interface RocketsProps {
 
 /** Rocket statistic item that contains a title and value */
 function RocketStat(props: {title: string; value: string; style?: React.CSSProperties}) {
-  const {title, value, style} = props;
+  const { title, value, style } = props;
 
   return (
     <div className="rocket-stat">
@@ -39,7 +39,7 @@ RocketStat.defaultProps = {
 
 /** Fragment that contains rendered information about a rocket */
 function RocketItem(props: {rocket: Rocket}) {
-  const {rocket} = props;
+  const { rocket } = props;
 
   let statusColor = 'lightgreen';
   let statusText = 'Active';
@@ -60,7 +60,7 @@ function RocketItem(props: {rocket: Rocket}) {
       <Typography variant="h4">{rocket.name}</Typography>
       <AlternatingImg className="rocket-img" time={time} alt={rocket.name} imgs={rocket.imgUrls} />
       <p>{rocket.description}</p>
-      <RocketStat title="Status" value={statusText} style={{color: statusColor}} />
+      <RocketStat title="Status" value={statusText} style={{ color: statusColor }} />
       <RocketStat title="First Flight" value={rocket.firstFlight} />
       <RocketStat title="Mass" value={`${rocket.weight.toLocaleString()} lbs`} />
       <RocketStat title="Est. Cost" value={`$ ${rocket.cost.toLocaleString()}`} />
@@ -70,7 +70,7 @@ function RocketItem(props: {rocket: Rocket}) {
 }
 
 /** Displays detailed information about the rockets in a flexible row of cards  */
-const Rockets: React.FC<RocketsProps> = ({rockets}: RocketsProps) => {
+const Rockets: React.FC<RocketsProps> = ({ rockets }: RocketsProps) => {
   // Sort based on the active status of the rocket and the date
   const sortedRockets = rockets.sort((a, b) => {
     if (a.active && b.active) return 0;
@@ -81,7 +81,7 @@ const Rockets: React.FC<RocketsProps> = ({rockets}: RocketsProps) => {
 
   return (
     <div className="rockets-container">
-      {sortedRockets.map(rocket => (
+      {sortedRockets.map((rocket) => (
         <Paper key={rocket.name} elevation={0} className="rocket">
           <RocketItem rocket={rocket} />
         </Paper>

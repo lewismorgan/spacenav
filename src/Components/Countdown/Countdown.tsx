@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { setInterval } from "timers";
-import { DateTime } from "luxon";
-import "./Countdown.css";
+import React, { useEffect, useState } from 'react';
+import { setInterval } from 'timers';
+import { DateTime } from 'luxon';
+import './Countdown.css';
 
 export interface CountdownProps {
   /** Unix timestamp when the countdown should reach 0 */
@@ -18,18 +18,18 @@ interface CountdownTime {
 /** From the provided end parameter, determine the days/hours/minutes/seconds until 0 */
 function calculateCountdown(endTime: number): CountdownTime {
   if (endTime === undefined || Number.isNaN(endTime)) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    };
   }
   const endDate = DateTime.fromMillis(endTime);
   const now = DateTime.fromJSDate(new Date(Date.now()));
 
   // Using the difference, calculate the days/hours/min/seconds from ms
-  const { days, hours, minutes, seconds } = endDate.diff(now, [
-    "day",
-    "minute",
-    "hour",
-    "seconds",
-  ]);
+  const { days, hours, minutes, seconds } = endDate.diff(now, ['day', 'minute', 'hour', 'seconds']);
 
   return {
     days,
@@ -39,6 +39,7 @@ function calculateCountdown(endTime: number): CountdownTime {
   };
 }
 
+// eslint-disable-next-line max-len
 /** Renders a component that counts down from the current time all the way to 0 based on the properties of the component  */
 const Countdown: React.FC<CountdownProps> = (props: CountdownProps) => {
   const { endTime } = props;

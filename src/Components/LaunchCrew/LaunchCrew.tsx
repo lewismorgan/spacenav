@@ -12,7 +12,7 @@ export interface LaunchCrewProps {
 
 /** Renders a fragment that contains an image and a name of the crew member */
 function CrewMemberItem(props: {member: CrewMember}) {
-  const {member} = props;
+  const { member } = props;
   return (
     <>
       <img src={member.imgUrl} alt={member.name} />
@@ -22,15 +22,13 @@ function CrewMemberItem(props: {member: CrewMember}) {
 }
 
 /** Component that displays a flexible listing of crew members with their image and name */
-const LaunchCrew: React.FC<LaunchCrewProps> = ({crew}: LaunchCrewProps) => {
+const LaunchCrew: React.FC<LaunchCrewProps> = ({ crew }: LaunchCrewProps) => {
   // Create the crew member component
-  const members = crew.map(item => {
-    return (
-      <div key={item.name} className="crew-member">
-        <CrewMemberItem member={item} />
-      </div>
-    );
-  });
+  const members = crew.map((item) => (
+    <div key={item.name} className="crew-member">
+      <CrewMemberItem member={item} />
+    </div>
+  ));
 
   return <div className="crew">{members}</div>;
 };

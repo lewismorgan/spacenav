@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from 'react';
 
 interface AlternatingImgProps {
   className?: string;
@@ -49,7 +49,7 @@ const AlternatingImg: React.FC<AlternatingImgProps> = ({
 
 // Set the defaults for the nullable values of the component
 AlternatingImg.defaultProps = {
-  className: "",
+  className: '',
 };
 
 export default AlternatingImg;

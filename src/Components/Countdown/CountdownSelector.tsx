@@ -4,10 +4,10 @@ import {
   MenuItem,
   Select,
   Typography,
-} from "@material-ui/core";
-import React, { useState } from "react";
-import Countdown from "./Countdown";
-import "./Countdown.css";
+} from '@material-ui/core';
+import React, { useState } from 'react';
+import Countdown from './Countdown';
+import './Countdown.css';
 
 export interface LaunchCountdown {
   name: string;
@@ -23,14 +23,14 @@ export interface CountdownSelectProps {
 
 const useStyles = makeStyles({
   underline: {
-    "&:before": {
-      borderBottom: "2px solid #005c22",
+    '&:before': {
+      borderBottom: '2px solid #005c22',
     },
-    "&:after": {
-      borderBottom: "2px solid #005c22",
+    '&:after': {
+      borderBottom: '2px solid #005c22',
     },
-    "&:hover": {
-      borderBottom: "2px solid #005c22",
+    '&:hover': {
+      borderBottom: '2px solid #005c22',
     },
   },
 });
@@ -87,7 +87,7 @@ const CountdownSelector: React.FC<CountdownSelectorProps> = ({
   const [value, setValue] = useState(0);
 
   const handleSelectionChanged = (
-    event: React.ChangeEvent<{ value: unknown }>
+    event: React.ChangeEvent<{ value: unknown }>,
   ) => {
     setValue(event.target.value as number);
   };

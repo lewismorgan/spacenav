@@ -8,11 +8,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@material-ui/core";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
-import "./Upcoming.css";
-import React from "react";
-import SpacexLaunchInfo from "../SpaceX/SpacexLaunchInfo";
+} from '@material-ui/core';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import './Upcoming.css';
+import React from 'react';
+import SpacexLaunchInfo from '../SpaceX/SpacexLaunchInfo';
 
 export interface LaunchItem {
   /** Unique name for this launch */
@@ -42,8 +42,8 @@ function formatDate(dateUtc: string): string {
 
 function hasExpandableContent(item: LaunchItem): boolean {
   return (
-    (item?.crew !== undefined && item?.crew?.length > 0) ||
-    (item?.description !== undefined && item?.description?.length > 0)
+    (item?.crew !== undefined && item?.crew?.length > 0)
+    || (item?.description !== undefined && item?.description?.length > 0)
   );
 }
 
@@ -74,7 +74,7 @@ function Row(props: { row: LaunchItem }) {
     // Set the class based on if you can open the row or not
     <TableRow
       className={`${
-        !open ? "upcoming-launch-row" : "upcoming-launch-row-expanded"
+        !open ? 'upcoming-launch-row' : 'upcoming-launch-row-expanded'
       }`}
     >
       {/* Set the column span to 7 because there are 7 headers for the table */}
@@ -116,30 +116,28 @@ function Row(props: { row: LaunchItem }) {
  */
 const LaunchTable: React.FC<LaunchTableProps> = ({
   items,
-}: LaunchTableProps) => {
-  return (
-    <TableContainer component={Paper}>
-      <Table className="upcoming-launch-table" aria-label="table">
-        <TableHead>
-          <TableRow className="upcoming-launch-header">
-            <TableCell />
-            {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
-            <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Rocket</TableCell>
-            <TableCell>Launchpad</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Capsule</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+}: LaunchTableProps) => (
+  <TableContainer component={Paper}>
+    <Table className="upcoming-launch-table" aria-label="table">
+      <TableHead>
+        <TableRow className="upcoming-launch-header">
+          <TableCell />
+          {/* Created an empty cell to accomodate detail expansion, pushing name to the right */}
+          <TableCell>Name</TableCell>
+          <TableCell>Date</TableCell>
+          <TableCell>Rocket</TableCell>
+          <TableCell>Launchpad</TableCell>
+          <TableCell>Location</TableCell>
+          <TableCell>Capsule</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {items.map((row) => (
+          <Row key={row.name} row={row} />
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
+);
 
 export default LaunchTable;

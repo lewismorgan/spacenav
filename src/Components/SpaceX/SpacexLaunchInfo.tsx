@@ -1,8 +1,8 @@
-import { Container, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { fetchCrewMember } from "../../Network";
-import LaunchCrew, { CrewMember } from "../LaunchCrew/LaunchCrew";
-import "./styles.css";
+import { Container, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { fetchCrewMember } from '../../Network';
+import LaunchCrew, { CrewMember } from '../LaunchCrew/LaunchCrew';
+import './styles.css';
 
 interface SpacexLaunchInfoProps {
   /** Mission details for the launch */
@@ -45,14 +45,11 @@ function CrewContainer(props: { crewIds: string[] }) {
       // Map the list of crew id's to promises that fetches data about the crew member
       const members = (
         await Promise.all(
-          crewIds.map((id) => {
-            return fetchCrewMember(id);
-          })
+          crewIds.map((id) => fetchCrewMember(id)),
         )
-      ).map((member) => {
+      ).map((member) =>
         // Use only the data that is needed from the result
-        return { imgUrl: member.image, name: member.name };
-      });
+        ({ imgUrl: member.image, name: member.name }));
 
       // Data has been fetched and mapped, set the state to the new members
       setData({ crewMembers: members });
@@ -77,24 +74,22 @@ function CrewContainer(props: { crewIds: string[] }) {
 const SpacexLaunchInfo: React.FC<SpacexLaunchInfoProps> = ({
   crewIds,
   details,
-}: SpacexLaunchInfoProps) => {
-  return (
-    <div className="launch-info">
-      {details !== undefined && details.length > 0 ? (
-        <DetailsContainer details={details} />
-      ) : undefined}
-      {/* Only build a crew container if there are crew ids */}
-      {crewIds !== undefined && crewIds.length > 0 ? (
-        <CrewContainer crewIds={crewIds ?? []} />
-      ) : undefined}
-    </div>
-  );
-};
+}: SpacexLaunchInfoProps) => (
+  <div className="launch-info">
+    {details !== undefined && details.length > 0 ? (
+      <DetailsContainer details={details} />
+    ) : undefined}
+    {/* Only build a crew container if there are crew ids */}
+    {crewIds !== undefined && crewIds.length > 0 ? (
+      <CrewContainer crewIds={crewIds ?? []} />
+    ) : undefined}
+  </div>
+);
 
 // Assign nullable properties for the component to defaults
 SpacexLaunchInfo.defaultProps = {
   crewIds: [],
-  details: "",
+  details: '',
 };
 
 export default SpacexLaunchInfo;

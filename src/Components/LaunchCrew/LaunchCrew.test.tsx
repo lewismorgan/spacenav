@@ -1,15 +1,15 @@
-import { render } from "@testing-library/react";
-import React from "react";
-import LaunchCrew, { CrewMember } from "./LaunchCrew";
+import { render } from '@testing-library/react';
+import React from 'react';
+import LaunchCrew, { CrewMember } from './LaunchCrew';
 
-describe("<LaunchCrew />", () => {
-  test("renders", () => {
+describe('<LaunchCrew />', () => {
+  test('renders', () => {
     const { container } = render(<LaunchCrew crew={[]} />);
     expect(container).toBeInTheDocument();
   });
 
-  test("renders crew members", () => {
-    const baseName = "CrewMember-";
+  test('renders crew members', () => {
+    const baseName = 'CrewMember-';
     const memberCount = 10;
 
     const members: CrewMember[] = [];
@@ -23,14 +23,14 @@ describe("<LaunchCrew />", () => {
     }
 
     const { queryAllByText, queryAllByAltText } = render(
-      <LaunchCrew crew={members} />
+      <LaunchCrew crew={members} />,
     );
     // Verify names and images are rendered
     expect(queryAllByText(baseName, { exact: false })).toHaveLength(
-      memberCount
+      memberCount,
     );
     expect(queryAllByAltText(baseName, { exact: false })).toHaveLength(
-      memberCount
+      memberCount,
     );
   });
 });

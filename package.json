@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@testing-library/dom": "^7.28.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.2.2",
@@ -13,10 +14,23 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "4.0.0",
     "fontsource-abel": "^3.0.9",
     "fontsource-electrolize": "^3.0.9",
     "fontsource-space-mono": "^3.0.9",
     "luxon": "^1.25.0",
+    "prettier": "2.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
@@ -30,32 +44,6 @@
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix"
   },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
-    "plugins": [
-      "@typescript-eslint",
-      "promise",
-      "unicorn"
-    ],
-    "extends": [
-      "airbnb-typescript",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:promise/recommended",
-      "plugin:unicorn/recommended",
-      "prettier",
-      "prettier/react",
-      "prettier/@typescript-eslint"
-    ],
-    "rules": {
-      "eslint/no-restricted-syntax": "off",
-      "unicorn/prevent-abbreviations": "off",
-      "unicorn/filename-case": "off",
-      "unicorn/no-abusive-eslint-disable": "off"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -67,20 +55,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^7.28.1",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "eslint": "^7.11.0",
-    "eslint-config-airbnb-typescript": "12.0.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.3.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4",
-    "eslint-plugin-unicorn": "^23.0.0",
-    "prettier": "2.1.2"
   }
 }
