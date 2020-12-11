@@ -19,7 +19,7 @@ function parseLaunchResult(json: any): LaunchResult {
  * https://api.spacexdata.com/v4/launches/past
  */
 export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
-  const response = await fetch("https://api.spacexdata.com/v4/launches/past");
+  const response = await fetch('https://api.spacexdata.com/v4/launches/past');
   const content = await response.json();
 
   const arr: LaunchResult[] = [];
@@ -40,7 +40,7 @@ export async function fetchPreviousLaunches(): Promise<LaunchResult[]> {
 export async function fetchUpcomingLaunches(): Promise<LaunchResult[]> {
   // Find the latest launches
   const response = await fetch(
-    "https://api.spacexdata.com/v4/launches/upcoming"
+    'https://api.spacexdata.com/v4/launches/upcoming',
   );
   const content = await response.json();
 
@@ -90,7 +90,7 @@ function parseRocketResult(json: any): RocketResult {
 export async function fetchRocket(rocket: string): Promise<RocketResult> {
   // Create the network request from rocket id
   const response = await fetch(
-    `https://api.spacexdata.com/v4/rockets/${rocket}`
+    `https://api.spacexdata.com/v4/rockets/${rocket}`,
   );
   const json = await response.json();
 
@@ -104,7 +104,7 @@ export async function fetchRocket(rocket: string): Promise<RocketResult> {
  * https://api.spacexdata.com/v4/rockets
  */
 export async function fetchRockets(): Promise<RocketResult[]> {
-  const response = await fetch(`https://api.spacexdata.com/v4/rockets`);
+  const response = await fetch('https://api.spacexdata.com/v4/rockets');
   const content = await response.json();
 
   const rockets: RocketResult[] = [];
@@ -138,11 +138,11 @@ interface RocketResult {
  * @param launchpad id of the launchpad from the api
  */
 export async function fetchLaunchpad(
-  launchpad: string
+  launchpad: string,
 ): Promise<LaunchpadResult> {
   // Create the network request from launchpad id
   const response = await fetch(
-    `https://api.spacexdata.com/v4/launchpads/${launchpad}`
+    `https://api.spacexdata.com/v4/launchpads/${launchpad}`,
   );
   const json = await response.json();
 
@@ -172,7 +172,7 @@ interface LaunchpadResult {
 export async function fetchCapsule(capsule: string): Promise<CapsuleResult> {
   // Create the network request from launchpad id
   const response = await fetch(
-    `https://api.spacexdata.com/v4/capsules/${capsule}`
+    `https://api.spacexdata.com/v4/capsules/${capsule}`,
   );
   const json = await response.json();
 

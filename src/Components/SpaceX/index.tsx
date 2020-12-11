@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   fetchUpcomingLaunches,
   fetchRocket,
@@ -6,14 +6,14 @@ import {
   fetchCapsule,
   LaunchResult,
   fetchRockets,
-} from "../../Network";
-import { Rocket } from "../Rockets/Rockets";
-import { LaunchItem } from "../Upcoming/Upcoming";
+} from '../../Network';
+import { Rocket } from '../Rockets/Rockets';
+import { LaunchItem } from '../Upcoming/Upcoming';
 
 /** Fetches upcoming rocket launches and assigns results as a state */
 export function useUpcomingLaunches(): LaunchResult[] {
   const [upcomingLaunches, setUpcomingLaunches] = useState(
-    new Array<LaunchResult>()
+    new Array<LaunchResult>(),
   );
 
   useEffect(() => {
@@ -25,10 +25,9 @@ export function useUpcomingLaunches(): LaunchResult[] {
       // Determine which launch is the soonest
       const now = Date.now();
       const sortedLaunches = launches
-        .filter((launch) => {
+        .filter((launch) =>
           // Make sure the launch hasn't happened yet
-          return new Date(launch.date).getTime() > now;
-        })
+          new Date(launch.date).getTime() > now)
         .sort((a, b) => {
           // Sort by the closest launch date to latest launch date
           const aDate = Date.parse(a.date);
@@ -60,15 +59,14 @@ export function useLaunchDetails(launchResults: LaunchResult[]): LaunchItem[] {
         const rocket = await fetchRocket(result.rocket);
         const launchpad = await fetchLaunchpad(result.launchpad);
         // Attempt to fetch the capsule if it exists for this launch
-        const capsule =
-          result?.capsule !== undefined
-            ? await fetchCapsule(result?.capsule)
-            : undefined;
+        const capsule = result?.capsule !== undefined
+          ? await fetchCapsule(result?.capsule)
+          : undefined;
 
         const launch: LaunchItem = {
           name: result.name,
           date: result.date,
-          capsule: capsule?.name ?? "",
+          capsule: capsule?.name ?? '',
           rocket: rocket.name,
           launchpad: launchpad.name,
           location: `${launchpad.locality}, ${launchpad.region}`,
@@ -98,18 +96,16 @@ export function useRockets(): Rocket[] {
   useEffect(() => {
     const fetchData = async () => {
       // Obtain all the rockets and map to a property for Rockets element
-      const fetchedRockets = (await fetchRockets()).map((result) => {
-        return {
-          name: result.name,
-          description: result.description,
-          imgUrls: result.imgUrls,
-          firstFlight: result.firstFlight,
-          successRate: result.successRate,
-          active: result.active,
-          cost: result.cost,
-          weight: result.weight,
-        } as Rocket;
-      });
+      const fetchedRockets = (await fetchRockets()).map((result) => ({
+        name: result.name,
+        description: result.description,
+        imgUrls: result.imgUrls,
+        firstFlight: result.firstFlight,
+        successRate: result.successRate,
+        active: result.active,
+        cost: result.cost,
+        weight: result.weight,
+      } as Rocket));
       setRockets(fetchedRockets);
     };
 

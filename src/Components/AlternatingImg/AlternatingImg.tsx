@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from 'react';
 
 interface AlternatingImgProps {
   className?: string;
@@ -38,12 +38,18 @@ const AlternatingImg: React.FC<AlternatingImgProps> = ({
     };
   }, [imgs, time]);
 
-  return <img className={className} alt={alt} src={visibleImg.img} />;
+  return (
+    <img
+      className={className}
+      alt={`${alt}-${visibleImg.index}`}
+      src={visibleImg.img}
+    />
+  );
 };
 
 // Set the defaults for the nullable values of the component
 AlternatingImg.defaultProps = {
-  className: "",
+  className: '',
 };
 
 export default AlternatingImg;

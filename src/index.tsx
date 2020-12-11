@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./Components/App/App";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import "fontsource-space-mono";
-import "fontsource-abel";
-import "fontsource-electrolize";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './Components/App/App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import 'fontsource-space-mono';
+import 'fontsource-abel';
+import 'fontsource-electrolize';
 
 // Find an element that has 'lds-dual-ring'
-const loader = document.querySelector(".lds-dual-ring");
+const loader = document.querySelector('.lds-dual-ring');
 
 const handleOnMounted = () => {
-  loader?.classList.add("lds-dual-ring--hide");
+  loader?.classList.add('lds-dual-ring--hide');
 };
 
 // Injects the App component into the HTML DOM using JSX
@@ -19,8 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App onMounted={handleOnMounted} />
   </React.StrictMode>,
-  // eslint-disable-next-line unicorn/prefer-query-selector
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
