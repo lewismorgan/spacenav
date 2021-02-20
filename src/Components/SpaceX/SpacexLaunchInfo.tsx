@@ -43,13 +43,10 @@ function CrewContainer(props: { crewIds: string[] }) {
       }
 
       // Map the list of crew id's to promises that fetches data about the crew member
-      const members = (
-        await Promise.all(
-          crewIds.map((id) => fetchCrewMember(id)),
-        )
-      ).map((member) =>
+      const members = (await Promise.all(crewIds.map(id => fetchCrewMember(id)))).map(member =>
         // Use only the data that is needed from the result
-        ({ imgUrl: member.image, name: member.name }));
+        ({ imgUrl: member.image, name: member.name })
+      );
 
       // Data has been fetched and mapped, set the state to the new members
       setData({ crewMembers: members });
@@ -76,7 +73,7 @@ const SpacexLaunchInfo: React.FC<SpacexLaunchInfoProps> = ({
   details,
 }: SpacexLaunchInfoProps) => (
   <div className="launch-info">
-    {details !== undefined && details.length > 0 ? (
+    {details !== undefined && details !== null && details.length !== null && details.length > 0 ? (
       <DetailsContainer details={details} />
     ) : undefined}
     {/* Only build a crew container if there are crew ids */}
