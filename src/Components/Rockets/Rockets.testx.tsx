@@ -19,7 +19,7 @@ function createTestRocket(
     active = true,
     firstFlight = '2010-10-10',
     imgUrls = [] as string[],
-  } = {},
+  } = {}
 ): Rocket {
   return {
     name,
@@ -56,15 +56,9 @@ describe('<Rockets />', () => {
     const wipRocketHeader = getByText('test-rocket-wip');
     const inactiveRocketHeader = getByText('test-rocket-inactive');
 
-    expect(container.firstChild?.childNodes[0]).toBe(
-      activeRocketHeader.parentElement,
-    );
-    expect(container.firstChild?.childNodes[1]).toBe(
-      wipRocketHeader.parentElement,
-    );
-    expect(container.firstChild?.childNodes[2]).toBe(
-      inactiveRocketHeader.parentElement,
-    );
+    expect(container.firstChild?.childNodes[0]).toBe(activeRocketHeader.parentElement);
+    expect(container.firstChild?.childNodes[1]).toBe(wipRocketHeader.parentElement);
+    expect(container.firstChild?.childNodes[2]).toBe(inactiveRocketHeader.parentElement);
   });
 
   test('renders simple rocket string stats', async () => {
@@ -77,22 +71,17 @@ describe('<Rockets />', () => {
     });
 
     expect(getByText(testRocket.name)).toHaveTextContent(testRocket.name);
-    expect(getByAltText(`${testRocket.name}-0`)).toHaveAttribute(
-      'src',
-      testRocket.imgUrls[0],
+    expect(getByAltText(`${testRocket.name}-0`)).toHaveAttribute('src', testRocket.imgUrls[0]);
+    expect(getByText(testRocket.description)).toHaveTextContent(testRocket.description);
+    expect(getByText(testRocket.cost.toString(), { exact: false })).toHaveTextContent(
+      `$ ${testRocket.cost.toString()}`
     );
-    expect(getByText(testRocket.description)).toHaveTextContent(
-      testRocket.description,
+    expect(getByText(testRocket.successRate.toString(), { exact: false })).toHaveTextContent(
+      `${testRocket.successRate} %`
     );
-    expect(
-      getByText(testRocket.cost.toString(), { exact: false }),
-    ).toHaveTextContent(`$ ${testRocket.cost.toString()}`);
-    expect(
-      getByText(testRocket.successRate.toString(), { exact: false }),
-    ).toHaveTextContent(`${testRocket.successRate} %`);
-    expect(
-      getByText(testRocket.weight.toString(), { exact: false }),
-    ).toHaveTextContent(`${testRocket.weight.toString()} lbs`);
+    expect(getByText(testRocket.weight.toString(), { exact: false })).toHaveTextContent(
+      `${testRocket.weight.toString()} lbs`
+    );
   });
 
   test('renders rocket status active/retired/wip in different colors', async () => {
