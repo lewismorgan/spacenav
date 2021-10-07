@@ -8,7 +8,7 @@ Created as final class project for ISM 4300 at the University of South Florida, 
 
 Site is deployed to <https://spacenav.netlify.app/>.
 
-Whenver there is new code published to the **master** branch, Netlify automatically rebuilds and deploys to <https://spacenav.netlify.app>
+Whenever there is new code published to the **master** branch, Netlify automatically rebuilds and deploys to <https://spacenav.netlify.app>
 
 Project Objectives:
 
