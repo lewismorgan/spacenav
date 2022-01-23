@@ -11,7 +11,7 @@ export interface LaunchCrewProps {
 }
 
 /** Renders a fragment that contains an image and a name of the crew member */
-function CrewMemberItem(props: {member: CrewMember}) {
+function CrewMemberItem(props: { member: CrewMember }) {
   const { member } = props;
   return (
     <>

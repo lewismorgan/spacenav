@@ -21,7 +21,7 @@ export interface RocketsProps {
 }
 
 /** Rocket statistic item that contains a title and value */
-function RocketStat(props: {title: string; value: string; style?: React.CSSProperties}) {
+function RocketStat(props: { title: string; value: string; style?: React.CSSProperties }) {
   const { title, value, style } = props;
 
   return (
@@ -38,7 +38,7 @@ RocketStat.defaultProps = {
 };
 
 /** Fragment that contains rendered information about a rocket */
-function RocketItem(props: {rocket: Rocket}) {
+function RocketItem(props: { rocket: Rocket }) {
   const { rocket } = props;
 
   let statusColor = 'lightgreen';

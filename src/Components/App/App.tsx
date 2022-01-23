@@ -92,7 +92,7 @@ const GitHubIcon = () => (
 );
 
 /** Helper fragment for building content that is styled similar for the main app */
-function ContentContainer(props: {name: string; children: ReactElement}) {
+function ContentContainer(props: { name: string; children: ReactElement }) {
   const { name, children } = props;
 
   return (
